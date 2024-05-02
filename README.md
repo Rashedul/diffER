@@ -1,20 +1,44 @@
 # diffER
-Identify differentially enriched regions from ChIP-seq data
+Identify differentially enriched regions from ChIP-seq peaks. 
 
-#### build database
+### 1. Running diffER 
+
+#### Requirements 
+- python >= 3.8
+- Linux
+
+#### Installation
+
+ - Cloning the repository
+
+```
+git clone https://github.com/omics-lab/VirusTaxo
+```
+
+ - Creation of Python Virtual Environment
+
+```
+cd diffER
+python3 -m venv environment
+source ./environment/bin/activate
+```
+
+ - Installation of Python Packages
+ 
+```
+pip install -r requirements.txt
+```
+
+
+### 2. build database
 Example of `--genome` is `hg38`, `hg19`.  You can check available genomes `genomepy genomes`
 
 ```
 build.py --genome <genome_build> --window_size <window size>
 ```
 
-#### build database
 
-```
-build.py --genome --window_size 
-```
-
-#### run diffER
+#### 3. run diffER
 
 ```
 diffER.py --group_A <bed files> --group_B <bed files> --p_value <p-value cutoff> 
