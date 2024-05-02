@@ -5,7 +5,6 @@ Identify differentially enriched regions from ChIP-seq peaks.
 
 #### Requirements 
 - python >= 3.8
-- Linux
 
 #### Installation
 
