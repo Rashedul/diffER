@@ -7,7 +7,7 @@ def make_windows(genome_build, window_size):
     a = pybedtools.example_bedtool('a.bed')
 
     # Create windows of specified size
-    windows = a.window_maker(genome = genome_build, w = window_size).saveas('bins.bed')
+    windows = a.window_maker(genome = genome_build, w = window_size).saveas('{genome_build}_windows.bed')
     # windows = bed.slop(b=window_size, genome='hg38')
 
     # # Save the windows to a new BED file
