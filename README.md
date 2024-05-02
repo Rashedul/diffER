@@ -12,7 +12,7 @@ Identify differentially enriched regions from ChIP-seq peaks.
  - Cloning the repository
 
 ```
-git clone https://github.com/omics-lab/VirusTaxo
+git clone https://github.com/Rashedul/diffER.git
 ```
 
  - Creation of Python Virtual Environment
@@ -24,11 +24,10 @@ source ./environment/bin/activate
 ```
 
  - Installation of Python Packages
- 
+
 ```
 pip install -r requirements.txt
 ```
-
 
 ### 2. build database
 Example of `--genome` is `hg38`, `hg19`.  You can check available genomes `genomepy genomes`
@@ -37,8 +36,7 @@ Example of `--genome` is `hg38`, `hg19`.  You can check available genomes `genom
 build.py --genome <genome_build> --window_size <window size>
 ```
 
-
-#### 3. run diffER
+### 3. run diffER
 
 ```
 diffER.py --group_A <bed files> --group_B <bed files> --p_value <p-value cutoff> 
