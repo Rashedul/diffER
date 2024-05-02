@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     # Parsing command line arguments
     parser = argparse.ArgumentParser(description="Create windows from a BED file")
-    parser.add_argument("genome_build", help="Input genome build name")
+    parser.add_argument("--genome_build", required=True, help="Input genome build name")
     parser.add_argument("--window_size", type=int, default=1000, help="Size of the windows")
     args = parser.parse_args()
 
