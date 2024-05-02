@@ -1,24 +1,8 @@
-# build genome database
-
 import pybedtools
-pybedtools.bedtool.BedTool.window_maker(...)
+import genomepy
 
-from pybedtools import BedTool
+a = pybedtools.example_bedtool('a.bed')
 
-# Example bed files
-bed_file1 = "file1.bed"
-bed_file2 = "file2.bed"
+windows = a.window_maker(genome ='hg38', w = 1000).saveas('bins.bed')
 
-# Creating BedTool objects from bed files
-bed1 = BedTool(bed_file1)
-bed2 = BedTool(bed_file2)
 
-# Defining the window size
-window_size = 1000
-
-# Making windows around bed1
-windows = bed1.window_maker(g=bed2, w=window_size)
-
-# Iterating through windows
-for window in windows:
-    print(window)
