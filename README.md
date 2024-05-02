@@ -39,5 +39,5 @@ build.py --genome <genome_build> --window_size <window size>
 ### 3. run diffER
 
 ```
-diffER.py --group_A <bed files> --group_B <bed files> --p_value <p-value cutoff> 
+diffER.py --group_A <bed files> --group_B <bed files> --genome <genome_build> --window_size <window size> --p_value <p-value cutoff> 
 ```
