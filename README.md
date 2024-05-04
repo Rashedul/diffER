@@ -32,11 +32,11 @@ pip install -r requirements.txt
 Example of `--genome` is `hg38`, `hg19`, `mm9`, `mm10` etc.  You can check available genomes in `genomepy`. Otherwise, provide a genome file of your interest. Example is added [here](genome_file). 
 
 ```
-build.py --genome_build <genome build> | --genome_file <genome file> --window_size <window size>
+python build.py --genome_build <genome build> | --genome_file <genome file> --window_size <window size>
 ```
 
 ### 3. run diffER
 
 ```
-diffER.py --group_A <bed files> --group_B <bed files> --genome <genome_build> --window_size <window size> --p_value <p-value cutoff> 
+python diffER.py --group_A <bed files> --group_B <bed files> --genome <genome_build> --window_size <window size> --p_value <p-value cutoff> 
 ```
