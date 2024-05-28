@@ -18,7 +18,7 @@ git clone https://github.com/Rashedul/diffER.git
 
 ```
 cd diffER
-python3 -m venv environment
+python -m venv environment
 source ./environment/bin/activate
 ```
 
@@ -39,4 +39,6 @@ python build.py --genome_build <genome build> | --genome_file <genome file> --wi
 
 ```
 python diffER.py --group_A <bed files> --group_B <bed files> --genome <genome_build> --window_size <window size> --p_value <p-value cutoff> 
+
+python t3.py --primary_bed genome_file_windows.bed --group_A ./data/*A*.bed --group_B ./data/*B*.bed
 ```

@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     # Parsing command line arguments
     parser = argparse.ArgumentParser(description="Intersect multiple sets of BED files with a primary BED file and save the count of intersecting BED files")
-    parser.add_argument("primary_bed", help="Path to the primary BED file")
+    parser.add_argument("--primary_bed", help="Path to the primary BED file")
     parser.add_argument("--group_A", nargs="+", required=True, help="Paths to the BED files in group A to intersect with the primary BED file")
     parser.add_argument("--group_B", nargs="+", required=True, help="Paths to the BED files in group B")
     parser.add_argument("--output_file", default="intersected_counts.bed", help="Path to save the intersected counts BED file")

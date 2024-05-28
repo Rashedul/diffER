@@ -1,2 +1,3 @@
 pybedtools
 genomepy
+scipy
