@@ -1,5 +1,5 @@
 # diffER (under development)
-Identify differentially Enriched Regions (diffER) from ChIP-seq peaks. 
+Identify **diff**erentially **E**nriched **R**egions (diffER) from ChIP-seq peaks. 
 
 ### 1. Requirements 
 - python >= 3.8
@@ -7,13 +7,13 @@ Identify differentially Enriched Regions (diffER) from ChIP-seq peaks.
 
 ### 2. Installation
 
- - Cloning the repository
+ - Clone the repository
 
 ```
 git clone https://github.com/Rashedul/diffER.git
 ```
 
- - Creation of Python Virtual Environment
+ - Create a virtual environment
 
 ```
 cd diffER
@@ -21,7 +21,7 @@ python -m venv environment
 source ./environment/bin/activate
 ```
 
- - Installation of Python Packages
+ - Install python packages
 
 ```
 pip install -r requirements.txt
