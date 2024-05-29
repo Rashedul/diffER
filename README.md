@@ -33,25 +33,32 @@ pip install -r requirements.txt
 - Example of `--genome_build` is `hg38`, `hg19`, `mm9`, `mm10` etc.  You can check available genomes in `genomepy`. 
 - Provide a genome file of your interest. Example of genome file is provided [here](./data/genome_file). 
 
-```
-# Find option details
-python diffER.py -h
 
-# Example command with genome build
+#### Find option details
+```
+python diffER.py -h
+```
+
+#### Example command with genome build
+```
 python diffER.py \
     --genome_build hg38 \
     --group_A_beds ./data/sample_A*.bed \
     --group_B_beds ./data/sample_B*.bed \
     --window_size 50
+```
 
-# Example command with genome file 
+#### Example command with genome file 
+```
 python diffER.py \
     --genome_file ./data/genome_file \
     --group_A_beds ./data/sample_A*.bed \
     --group_B_beds ./data/sample_B*.bed \
     --window_size 50
+```
 
-# Evaluate output in a heatmap
+#### Evaluate output in a heatmap
+```
 python diffER_heatmap.py \
 	--outfile diffER_out.bed \
 	--group_A_beds ./data/sample_A*.bed \
