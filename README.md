@@ -1,5 +1,5 @@
 # diffER (under development)
-Identify **diff**erentially **E**nriched **R**egions (diffER) from ChIP-seq peaks. 
+Identify **diff**erentially **E**nriched **R**egions **(diffER)** from ChIP-seq peaks. 
 
 ### 1. Requirements 
 - python >= 3.8
@@ -62,8 +62,8 @@ python diffER.py \
 python diffER_heatmap.py \
 	--outfile diffER_out.bed \
 	--group_A_beds ./data/sample_A*.bed \
-    --group_B_beds ./data/sample_B*.bed \
-    --filename diffER_heatmap 
+	--group_B_beds ./data/sample_B*.bed \
+	--filename diffER_heatmap 
 ``` 
 
 ### 4. Notes
