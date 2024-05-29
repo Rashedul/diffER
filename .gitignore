@@ -1,1 +1,9 @@
 .DS_Store
+
+# Ignore virtual environment directory
+environment/
+.environment/
+temp/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
