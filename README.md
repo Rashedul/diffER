@@ -1,12 +1,11 @@
 # diffER (under development)
 Identify differentially enriched regions from ChIP-seq peaks. 
 
-### 1. Running diffER 
-
-#### Requirements 
+### 1. Requirements 
 - python >= 3.8
+- Linux
 
-#### Installation
+### 2. Installation
 
  - Cloning the repository
 
@@ -28,17 +27,9 @@ source ./environment/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. build database
+### 3. Run diffER
 Example of `--genome_build` is `hg38`, `hg19`, `mm9`, `mm10` etc.  You can check available genomes in `genomepy`. Otherwise, provide a genome file of your interest. Example is added [here](genome_file). 
 
 ```
-python build.py --genome_build <genome build> | --genome_file <genome file> --window_size <window size>
-```
-
-### 3. run diffER
-
-```
-python diffER.py --group_A <bed files> --group_B <bed files> --genome <genome_build> --window_size <window size> --p_value <p-value cutoff> 
-
-python t3.py --primary_bed genome_file_windows.bed --group_A ./data/*A*.bed --group_B ./data/*B*.bed
+python diffER.py --genome_file genome_file --group_A_beds ./data/sample_A*.bed  --group_B_beds ./data/sample_B*.bed --window_size 200
 ```
