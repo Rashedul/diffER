@@ -3,6 +3,9 @@ Identify **diff**erentially **E**nriched **R**egions **(diffER)** from ChIP-seq 
 
 ![Pipeline](./data/pipeline.gif =1920x1080)
 
+<img src="./data/pipeline.gif" alt="Example Image" width="400" />
+
+
 ### 1. Requirements 
 - python >= 3.8
 - Linux
