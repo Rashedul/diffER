@@ -38,10 +38,18 @@ pip install -r requirements.txt
 python diffER.py -h
 
 # Example command with genome build
-python diffER.py --genome_build hg38 --group_A_beds ./data/sample_A*.bed  --group_B_beds ./data/sample_B*.bed --window_size 50
+python diffER.py \
+    --genome_build hg38 \
+    --group_A_beds ./data/sample_A*.bed \
+    --group_B_beds ./data/sample_B*.bed \
+    --window_size 50
 
 # Example command with genome file 
-python diffER.py --genome_file ./data/genome_file --group_A_beds ./data/sample_A*.bed  --group_B_beds ./data/sample_B*.bed --window_size 50
+python diffER.py \
+    --genome_file ./data/genome_file \
+    --group_A_beds ./data/sample_A*.bed \
+    --group_B_beds ./data/sample_B*.bed \
+    --window_size 50
 ``` 
 
 ### 4. Notes
