@@ -1,7 +1,7 @@
 # diffER (under development)
 Identify **diff**erentially **E**nriched **R**egions **(diffER)** from ChIP-seq peaks. 
 
-![Pipeline](./data/pipeline.gif)
+![Pipeline](./data/pipeline.gif =1920x1080)
 
 ### 1. Requirements 
 - python >= 3.8
