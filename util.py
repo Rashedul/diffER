@@ -92,6 +92,32 @@ def intersect_bedfiles(primary_bed, multiple_beds, output_filename):
     print(f"Intersection result saved to {output_filename}")
 
 """
+Concate BED files of two groups  
+"""
+
+def merge_groups(file1, file2, output):
+    """
+    Merge two BED files by concatenating specific columns.
+
+    Parameters:
+    - file1 (str): Path to the first BED file.
+    - file2 (str): Path to the second BED file.
+    - output (str): Path to the output merged BED file.
+    """
+    # Read the BED files without considering the first row as column names
+    file_1 = pd.read_csv(file1, sep='\t', header=None)
+    file_2 = pd.read_csv(file2, sep='\t', header=None)
+    
+    # Select the 4th and 5th columns from file_2.tsv
+    columns_to_add = file_2.iloc[:, [3, 4]]
+    
+    # Concatenate the columns to file_1
+    result = pd.concat([file_1, columns_to_add], axis=1)
+    
+    # Save the resulting DataFrame to a new BED file
+    result.to_csv(output, sep='\t', index=False, header=False)
+
+"""
 Fisher's Exact Test 
 """
 

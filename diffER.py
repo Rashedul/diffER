@@ -1,6 +1,5 @@
-from util import make_windows_build, make_windows_file, intersect_bedfiles, perform_fisher_test 
+from util import make_windows_build, make_windows_file, intersect_bedfiles, perform_fisher_test, merge_groups
 import argparse
-import pandas as pd
 
 # Create windows from a genome and intersect BED files
 def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, out_file):
@@ -17,13 +16,12 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, o
     intersect_bedfiles(primary_bed, group_A_beds, "group_A_intersect.bed")
     intersect_bedfiles(primary_bed, group_B_beds, "group_B_intersect.bed")
 
-    # Merge bed files to have the number of intersections (and non-intersection) of samples for group_A and group_B
-    file_1 = pd.read_csv('./temp/group_A_intersect.bed', sep='\t', header=None)
-    file_2 = pd.read_csv('./temp/group_B_intersect.bed', sep='\t', header=None)
-    columns_to_add = file_2.iloc[:, [3, 4]]
-    result = pd.concat([file_1, columns_to_add], axis=1)
-    result.to_csv('./temp/merged_group_A_B.bed', sep='\t', index=False, header=False)
-
+    # Number of intersections (and non-intersection) of samples in both group_A and group_B
+    group_A = './temp/group_A_intersect.bed'
+    group_B = './temp/group_B_intersect.bed'
+    output_file = './temp/merged_group_A_B.bed'
+    merge_groups(group_A, group_B, output_file)
+    
     # Fisher's exact test
     merge = './temp/merged_group_A_B.bed'
     perform_fisher_test(merge, out_file)

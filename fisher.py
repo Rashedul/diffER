@@ -16,7 +16,7 @@ table = np.array([[2, 1],
                   [3, 0]])
 
 table = np.array([[4, 0],
-                  [0, 3]])
+                  [0, 4]])
 print((table))
 print(type(table))
 

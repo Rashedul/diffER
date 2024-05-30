@@ -76,6 +76,20 @@ python diffER.py \
     --out_file diffER_output.bed
 ```
 
+#### Output file columns
+```
+colum-1: chromosome
+colum-2: start
+colum-3: end
+colum-4: number of samples intersected from group_A
+colum-5: number of samples did not intersect from group_A
+colum-6: number of samples intersected from group_B
+colum-7: number of samples did not intersect from group_B
+colum-8: p-value
+colum-9: odd-ratio # empty cells contain `nan` 
+```
+
+
 #### Evaluate output in a heatmap
 ```
 python diffER_heatmap.py \
