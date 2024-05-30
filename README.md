@@ -4,7 +4,7 @@
   <tr>
     <td>
       <h3> Differentially Enriched Regions (diffER)</h3>
-      <p>Workflow of diffER is:</p>
+      <p>Workflow:</p>
       <ol>
         <li> Split the genome into 50bp non-overlapping bins.</li>
         <li> Calculate the number of samples per group that have (or have not) peaks in each bin.</li>
