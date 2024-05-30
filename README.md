@@ -1,4 +1,4 @@
-## Identify differentially Enriched Regions (diffER) from ChIP-seq peaks
+## Analysis of differentially Enriched Regions (diffER) from ChIP-seq peaks
 
 <table>
   <tr>
