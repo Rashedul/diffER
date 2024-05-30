@@ -10,6 +10,31 @@ Identify **diff**erentially **E**nriched **R**egions **(diffER)** from ChIP-seq 
   <img width="400" src="./data/pipeline.gif" alt="Project Image">
 </p>
 
+
+# Project Overview
+
+<table>
+  <tr>
+    <td>
+      <h3>Project Title</h3>
+      <p>T1. Split the genome into 50bp non-overlapping bins.
+2. Calculate the number of samples that have (or have not) peaks in each bin. 
+3. Fisher’s exact test to identify the differentially enriched bins between two groups. 
+4. Merged the differentially enriched bins with a neighboring 100bp window. </p>
+      <ul>
+        <li>Feature 1</li>
+        <li>Feature 2</li>
+        <li>Feature 3</li>
+      </ul>
+    </td>
+    <td>
+      <img src="https://via.placeholder.com/150" alt="Project Image" width="150"/>
+    </td>
+  </tr>
+</table>
+
+
+
 ### 1. Requirements 
 - python >= 3.8
 - Linux
