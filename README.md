@@ -2,7 +2,7 @@
 Identify **diff**erentially **E**nriched **R**egions **(diffER)** from ChIP-seq peaks. 
 
 <p align="center">
-  <img width="350" src="./data/pipeline.gif" alt="Project Image">
+  <img width="400" src="./data/pipeline.gif" alt="Project Image">
 </p>
 
 ### 1. Requirements 
