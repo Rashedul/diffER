@@ -14,7 +14,7 @@
       <br>
     </td>
     <td>
-      <img src="./data/pipeline.gif" alt="Project Image" width="450"/>
+      <img src="./data/pipeline.gif" alt="Project Image" width="400"/>
     </td>
   </tr>
 </table>
