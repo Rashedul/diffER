@@ -1,4 +1,4 @@
-## Analysis of differentially Enriched Regions (diffER) from ChIP-seq peaks
+## diffER: Analysis of differentially Enriched Regions from ChIP-seq peaks
 
 <table>
   <tr>
@@ -6,10 +6,10 @@
       <h3> Differentially Enriched Regions (diffER)</h3>
       <p>Workflow:</p>
       <ol>
-        <li> Split the genome into 50bp non-overlapping bins.</li>
+        <li> Split the genome into non-overlapping bins.</li>
         <li> Calculate the number of samples per group that have (or have not) peaks in each bin.</li>
         <li> Fisher’s exact test to identify the differentially enriched bins between two groups.</li>
-		<li> Merged the differentially enriched bins with a neighboring 100bp window.  </li>
+		<li> Merged the neighboring bins that are differentially enriched.</li>
       </ol>
       <br>
     </td>
