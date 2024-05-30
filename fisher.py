@@ -11,6 +11,12 @@ from scipy.stats import fisher_exact
 # Define the contingency table
 table = np.array([[10, 5],
                   [3, 15]])
+
+table = np.array([[2, 1],
+                  [3, 0]])
+
+table = np.array([[4, 0],
+                  [0, 3]])
 print((table))
 print(type(table))
 

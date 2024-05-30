@@ -1,4 +1,4 @@
-## diffER: Analysis of differentially Enriched Regions from ChIP-seq peaks
+## diffER: Analysis of differentially enriched regions from ChIP-seq peaks
 
 <table>
   <tr>
@@ -72,7 +72,8 @@ python diffER.py \
     --genome_file ./data/genome_file \
     --group_A_beds ./data/sample_A*.bed \
     --group_B_beds ./data/sample_B*.bed \
-    --window_size 50
+    --window_size 200 \
+    --out_file diffER_output.bed
 ```
 
 #### Evaluate output in a heatmap
@@ -89,4 +90,7 @@ python diffER_heatmap.py \
 - Check your results at different p-values and/or odd ratios. 
 - Required number of samples per group is at least 3.
 
-### 5. Citation 
+### 5. Contact  
+Rashedul Islam, PhD (rashedul.gen@gmail.com)
+
+### 6. Citation

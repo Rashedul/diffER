@@ -1,21 +1,15 @@
-import numpy as np
-from scipy.stats import fisher_exact
+import pandas as pd
 
-# Create a 2x2 contingency table
-# For example, let's say we have the following data:
-#         | Success | Failure |
-# --------------------------------
-# Group A |   10    |    5    |
-# Group B |    3    |   15    |
+# Read the TSV files
+file_1 = pd.read_csv('./temp/group_A_intersect.bed', sep='\t', header=None)
+file_2 = pd.read_csv('./temp/group_B_intersect.bed', sep='\t', header=None)
 
-# Define the contingency table
-table = np.array([[10, 5],
-                  [3, 15]])
-print((table))
-print(type(table))
+# Select the 4th and 5th columns from file_2.tsv
+# Note: Columns in pandas are zero-indexed, so 4th column is index 3 and 5th column is index 4
+columns_to_add = file_2.iloc[:, [3, 4]]
 
-# Perform Fisher's exact test
-oddsratio, p_value = fisher_exact(table)
+# Concatenate the columns to file_1
+result = pd.concat([file_1, columns_to_add], axis=1)
 
-print(f"Odds Ratio: {oddsratio}")
-print(f"P-Value: {p_value}")
+# Save the resulting DataFrame to a new TSV file
+result.to_csv('./temp/merged_group_A_B.bed', sep='\t', index=False, header=False)
