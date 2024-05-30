@@ -1,16 +1,16 @@
-## diffER: Identify differentially Enriched Regions (diffER) from ChIP-seq peaks
+## Identify differentially Enriched Regions (diffER) from ChIP-seq peaks
 
 <table>
   <tr>
     <td>
       <h3> Differentially Enriched Regions (diffER)</h3>
       <p>Workflow of diffER is:</p>
-      <ul>
+      <ol>
         <li> Split the genome into 50bp non-overlapping bins.</li>
         <li> Calculate the number of samples that have (or have not) peaks in each bin.</li>
         <li> Fisher’s exact test to identify the differentially enriched bins between two groups.</li>
 		<li> Merged the differentially enriched bins with a neighboring 100bp window.  </li>
-      </ul>
+      </ol>
     </td>
     <td>
       <img src="./data/pipeline.gif" alt="Project Image" width="400"/>
