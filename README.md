@@ -1,18 +1,4 @@
-# diffER (under development)
-Identify **diff**erentially **E**nriched **R**egions **(diffER)** from ChIP-seq peaks. Workflow of diffER is:
-
-1. Split the genome into 50bp non-overlapping bins.
-2. Calculate the number of samples that have (or have not) peaks in each bin. 
-3. Fisher’s exact test to identify the differentially enriched bins between two groups. 
-4. Merged the differentially enriched bins with a neighboring 100bp window. 
-
-<p align="center">
-  <img width="400" src="./data/pipeline.gif" alt="Project Image">
-</p>
-
-
-# diffER (under development)
-Identify **diff**erentially **E**nriched **R**egions **(diffER)** from ChIP-seq peaks. 
+## diffER: Identify differentially Enriched Regions (diffER) from ChIP-seq peaks
 
 <table>
   <tr>
@@ -31,8 +17,6 @@ Identify **diff**erentially **E**nriched **R**egions **(diffER)** from ChIP-seq 
     </td>
   </tr>
 </table>
-
-
 
 ### 1. Requirements 
 - python >= 3.8
