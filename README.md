@@ -11,6 +11,7 @@
         <li> Fisher’s exact test to identify the differentially enriched bins between two groups.</li>
 		<li> Merged the differentially enriched bins with a neighboring 100bp window.  </li>
       </ol>
+      <br>
     </td>
     <td>
       <img src="./data/pipeline.gif" alt="Project Image" width="400"/>
