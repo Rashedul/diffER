@@ -19,12 +19,22 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, o
     # Number of intersections (and non-intersection) of samples in both group_A and group_B
     group_A = './temp/group_A_intersect.bed'
     group_B = './temp/group_B_intersect.bed'
-    output_file = './temp/merged_group_A_B.bed'
-    merge_groups(group_A, group_B, output_file)
+    output_file_groups = './temp/merged_group_A_B.bed'
+    merge_groups(group_A, group_B, output_file_groups)
     
     # Fisher's exact test
     merge = './temp/merged_group_A_B.bed'
-    perform_fisher_test(merge, out_file)
+    output_file_fisher = './temp/merged_group_A_B_fisher.bed'
+    perform_fisher_test(merge, output_file_fisher)
+    # 4/(4+5) - 6/(6+7); if +ve group_A, if -ve group_B
+    # split the file for up and dn regions
+    # merge neighboring bins by 100bp
+
+## test
+#cd /home/rashedul/project/diffER
+#less temp/merged_group_A_B_fisher.bed | awk '$8<.5{print $0, $4/($4+$5) - $6/($6+$7)}' | awk '$10 > 0{print}' | bedtools merge -i stdin -d 100 >group_A_enriched.bed
+#less temp/merged_group_A_B_fisher.bed | awk '$8<.5{print $0, $4/($4+$5) - $6/($6+$7)}' | awk '$10 < 0{print}' | bedtools merge -i stdin -d 100 >group_B_enriched.bed
+##
 
 # def main():
 #     # Check for correct number of arguments

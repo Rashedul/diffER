@@ -95,7 +95,7 @@ def intersect_bedfiles(primary_bed, multiple_beds, output_filename):
 Concate BED files of two groups  
 """
 
-def merge_groups(file1, file2, output):
+def merge_groups(file1, file2, merge_output):
     """
     Merge two BED files by concatenating specific columns.
 
@@ -115,13 +115,13 @@ def merge_groups(file1, file2, output):
     result = pd.concat([file_1, columns_to_add], axis=1)
     
     # Save the resulting DataFrame to a new BED file
-    result.to_csv(output, sep='\t', index=False, header=False)
+    result.to_csv(merge_output, sep='\t', index=False, header=False)
 
 """
 Fisher's Exact Test 
 """
 
-def perform_fisher_test(input_file, output_file):
+def perform_fisher_test(input_file, fisher_output):
     # Read the TSV file without considering the first row as column names
     data = pd.read_csv(input_file, sep='\t', header=None)
     
@@ -147,4 +147,8 @@ def perform_fisher_test(input_file, output_file):
     data[8] = odds_ratios
     
     # Save the resulting DataFrame to a new TSV file
-    data.to_csv(output_file, sep='\t', index=False, header=False)
+    data.to_csv(fisher_output, sep='\t', index=False, header=False)
+
+"""
+Merge neighboring bins 
+"""    
