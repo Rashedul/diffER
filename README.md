@@ -47,15 +47,34 @@ pip install -r requirements.txt
 
 ### 3. Run diffER
 
-- Required parameters are `genome_build` or `genome_file`, `group_A bed files`, `group_B bed files`
-- Provide either a genome build or genome file 
-- Example of `--genome_build` is `hg38`, `hg19`, `mm9`, `mm10` etc.  You can check available genomes in `genomepy`. 
-- Provide a genome file of your interest. Example of genome file is provided [here](./data/genome_file). 
-
+#### Notes
+- Required parameters are `genome_build` or `genome_file`, `group_A_beds`, `group_B_beds`
+  - Example of `--genome_build` is `hg38`, `hg19`, `mm9`, `mm10` etc.  You can check available genomes in `genomepy`. 
+  - Alternatively provide a `genome file` of your interest. Example of `genome file` is provided [here](./data/genome_file). 
+- `group_A_beds` and `group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
+- Check your results at different p-value thresholds. 
+- Required number of samples per group is at least 4.
 
 #### Usage
 ```
 python diffER.py -h
+
+Usage:
+    python diffER.py [--genome_build GENOME_BUILD | --genome_file GENOME_FILE] --group_A_beds GROUP_A_BEDS [--group_B_beds GROUP_B_BEDS] [--window_size WINDOW_SIZE] [--p_value P_VALUE] [--distance DISTANCE]
+
+Arguments:
+    --genome_build GENOME_BUILD   Input genome build name
+    --genome_file GENOME_FILE     Input genome file
+    --group_A_beds GROUP_A_BEDS   Input group A BED files (multiple allowed)
+    --group_B_beds GROUP_B_BEDS   Input group B BED files (multiple allowed)
+    --window_size WINDOW_SIZE     Size of the windows; default [50]
+    --p_value P_VALUE             p-value threshold for Fisher's exact test; default [0.05]
+    --distance DISTANCE           Maximum distance between intervals allowed to be merged; default [100]
+
+Example:
+    python diffER.py --genome_build hg38 --group_A_beds ./data/sample_A*.bed --group_B_beds ./data/sample_B*.bed 
+    Or,
+    python diffER.py --genome_build hg38 --group_A_beds ./data/sample_A*.bed --group_B_beds ./data/sample_B*.bed --window_size 50 --p_value 0.05 --distance 100
 ```
 
 #### Example command with genome build
@@ -63,8 +82,7 @@ python diffER.py -h
 python diffER.py \
     --genome_build hg38 \
     --group_A_beds ./data/sample_A*.bed \
-    --group_B_beds ./data/sample_B*.bed \
-    --window_size 50
+    --group_B_beds ./data/sample_B*.bed
 ```
 
 #### Example command with genome file 
@@ -72,9 +90,7 @@ python diffER.py \
 python diffER.py \
     --genome_file ./data/genome_file \
     --group_A_beds ./data/sample_A*.bed \
-    --group_B_beds ./data/sample_B*.bed \
-    --window_size 50 \
-    --out_file diffER_output.bed
+    --group_B_beds ./data/sample_B*.bed 
 ```
 
 #### Evaluate output in a heatmap
@@ -86,12 +102,7 @@ python diffER_heatmap.py \
 	--filename diffER_heatmap 
 ``` 
 
-### 4. Notes
-- It's recommended to evaluate the output carefylly, particularly for samples with higher sample-to-sample variations. 
-- Check your results at different p-values and/or odd ratios. 
-- Required number of samples per group is at least 3.
-
-### 5. Contact  
+### 4. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
-### 6. Citation
+### 5. Citation

@@ -171,7 +171,7 @@ def enriched_regions(fisher_p_value, merge_intervals):
     merged_intervals_neg = df_neg_bed.merge(d=merge_intervals)
 
     # Write the merged intervals to BED files
-    merged_intervals_pos.saveas('DiffER_group_A_enriched_regions.bed')
-    merged_intervals_neg.saveas('DiffER_group_B_enriched_regions.bed')
+    merged_intervals_pos.saveas('group_A_enriched_regions.bed')
+    merged_intervals_neg.saveas('group_B_enriched_regions.bed')
 
-    print(f"Output created and saved as: \n - DiffER_group_A_enriched_regions.bed \n - DiffER_group_B_enriched_regions.bed")
+    print(f"Output created and saved as: \n - group_A_enriched_regions.bed \n - group_B_enriched_regions.bed")
