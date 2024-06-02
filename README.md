@@ -87,15 +87,6 @@ python diffER.py \
     --group_B_beds ./data/sample_B*.bed 
 ```
 
-#### Evaluate output in a heatmap
-```
-python diffER_heatmap.py \
-	--outfile diffER_out.bed \
-	--group_A_beds ./data/sample_A*.bed \
-	--group_B_beds ./data/sample_B*.bed \
-	--filename diffER_heatmap 
-``` 
-
 ### 4. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 

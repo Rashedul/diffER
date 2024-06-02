@@ -9,16 +9,22 @@ Create windows of specific size from a genome build
 """
 
 def make_windows_build(genome_build, window_size):
-
-# Load the input (temp) BED file
+# Create a BED object
     a = pybedtools.BedTool()
 
     # Create windows of specified size
     windows = a.window_maker(genome=genome_build, w=window_size)
     output_bed = f"windows.bed"
     
+    # Ensure the temp directory exists
+    temp_dir = "temp"
+    if not os.path.exists(temp_dir):
+        os.makedirs(temp_dir, exist_ok=True)
+        print(f"Directory created: {temp_dir}")
+    else:
+        print(f"Directory already exists: {temp_dir}")
+
     # Save the windows to a new BED file in temp directory
-    os.makedirs("temp", exist_ok=True)
     filepath = os.path.join("temp", output_bed)
     windows.saveas(filepath)
     # print(f"Windows created and saved to {output_bed}")
@@ -28,8 +34,7 @@ Create windows of specific size from a genome file
 """
 
 def make_windows_file(genome_file, window_size):
-
-# Load the input (temp) BED file
+# Create a BED object
     a = pybedtools.BedTool()
 
     # Create windows of specified size
@@ -158,7 +163,7 @@ def enriched_regions(fisher_p_value, merge_intervals):
 
     # Compute the new column using the formula
     df[9] = df[3] / (df[3] + df[4]) - df[5] / (df[5] + df[6])
-    df.to_csv('./temp/test.bed', sep='\t', index=False, header=False)
+    # df.to_csv('./temp/test.bed', sep='\t', index=False, header=False)
 
     # Split the DataFrame into two groups
     df_pos = df[df[9] > 0]

@@ -21,7 +21,7 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p
     intersect_bedfiles('./temp/windows.bed', group_A_beds, "group_A_intersect.bed")
     intersect_bedfiles('./temp/windows.bed', group_B_beds, "group_B_intersect.bed")
 
-    # Number of intersections (and non-intersection) of samples in both group_A and group_B
+    # Merge two files containing the number of intersections (and non-intersection) of samples in group_A and group_B
     merge_groups('./temp/group_A_intersect.bed', './temp/group_B_intersect.bed', './temp/merged_group_A_B.bed')
     
     # Fisher's exact test
