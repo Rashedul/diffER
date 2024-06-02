@@ -3,6 +3,7 @@ import os
 import sys
 import pandas as pd
 from scipy.stats import fisher_exact
+import shutil
 
 """
 Create windows of specific size from a genome build 
@@ -180,3 +181,12 @@ def enriched_regions(fisher_p_value, merge_intervals):
     merged_intervals_neg.saveas('group_B_enriched_regions.bed')
 
     print(f"Output created and saved as: \n - group_A_enriched_regions.bed \n - group_B_enriched_regions.bed")
+
+def remove_directory(dir_path):
+    if os.path.exists(dir_path):
+        try:
+            shutil.rmtree(dir_path)
+        except OSError as e:
+            print(f"Error: {e.strerror}")
+    else:
+        print(f"Directory '{dir_path}' does not exist.")

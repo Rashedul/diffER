@@ -1,12 +1,13 @@
+import argparse
 from util import (
     make_windows_build, 
     make_windows_file, 
     intersect_bedfiles, 
     perform_fisher_test, 
     merge_groups, 
-    enriched_regions
+    enriched_regions,
+    remove_directory
 ) 
-import argparse
 
 def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p_value, distance):
     # Create windows of specified size
@@ -29,6 +30,9 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p
 
     # Generate ERs per group
     enriched_regions(p_value, distance)
+
+    # Remove intermediate files
+    remove_directory('temp')
 
 ## test
 # cd /home/rashedul/project/diffER
