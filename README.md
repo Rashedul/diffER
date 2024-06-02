@@ -52,7 +52,6 @@ pip install -r requirements.txt
   - Example of `--genome_build` is `hg38`, `hg19`, `mm9`, `mm10` etc.  You can check available genomes in `genomepy`. 
   - Alternatively provide a `genome file` of your interest. Example of `genome file` is provided [here](./data/genome_file). 
 - `group_A_beds` and `group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
-- Check your results at different p-value thresholds. 
 - Required number of samples per group is at least 4.
 
 #### Usage
@@ -70,11 +69,6 @@ Arguments:
     --window_size WINDOW_SIZE     Size of the windows; default [50]
     --p_value P_VALUE             p-value threshold for Fisher's exact test; default [0.05]
     --distance DISTANCE           Maximum distance between intervals allowed to be merged; default [100]
-
-Example:
-    python diffER.py --genome_build hg38 --group_A_beds ./data/sample_A*.bed --group_B_beds ./data/sample_B*.bed 
-    Or,
-    python diffER.py --genome_build hg38 --group_A_beds ./data/sample_A*.bed --group_B_beds ./data/sample_B*.bed --window_size 50 --p_value 0.05 --distance 100
 ```
 
 #### Example command with genome build
