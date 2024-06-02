@@ -87,6 +87,13 @@ python diffER.py \
     --group_B_beds ./data/sample_B*.bed 
 ```
 
+#### Example output files
+Two output files are created and saved as:  
+```
+  - group_A_enriched_regions.bed 
+  - group_B_enriched_regions.bed
+```
+
 ### 4. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
