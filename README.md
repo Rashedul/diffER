@@ -47,12 +47,13 @@ pip install -r requirements.txt
 
 ### 3. Run diffER
 
+- Required parameters are `genome_build` or `genome_file`, `group_A bed files`, `group_B bed files`
 - Provide either a genome build or genome file 
 - Example of `--genome_build` is `hg38`, `hg19`, `mm9`, `mm10` etc.  You can check available genomes in `genomepy`. 
 - Provide a genome file of your interest. Example of genome file is provided [here](./data/genome_file). 
 
 
-#### Find option details
+#### Usage
 ```
 python diffER.py -h
 ```

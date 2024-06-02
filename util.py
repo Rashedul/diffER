@@ -21,7 +21,7 @@ def make_windows_build(genome_build, window_size):
     os.makedirs("temp", exist_ok=True)
     filepath = os.path.join("temp", output_bed)
     windows.saveas(filepath)
-    print(f"Windows created and saved to {output_bed}")
+    # print(f"Windows created and saved to {output_bed}")
 
 """
 Create windows of specific size from a genome file
@@ -40,7 +40,6 @@ def make_windows_file(genome_file, window_size):
     os.makedirs("temp", exist_ok=True)
     filepath = os.path.join("temp", output_bed)
     windows.saveas(filepath)
-    print(f"Windows created and saved to {output_bed}")
 
 """
 Count number of bed files intersected (not-intersected) to the windows 
@@ -89,8 +88,6 @@ def intersect_bedfiles(primary_bed, multiple_beds, output_filename):
     # Perform intersection
     result_bed = intersect_bedfiles(primary_bed_file, multiple_bed_files, output_filename)
 
-    print(f"Intersection result saved to {output_filename}")
-
 """
 Concate BED files of two groups  
 """
@@ -133,7 +130,7 @@ def perform_fisher_test(input_file, fisher_output):
     for index, row in data.iterrows():
         # Create a 2x2 contingency table from columns 4 to 7 (zero-indexed as 3 to 6)
         contingency_table = [[row[3], row[4]], [row[5], row[6]]]
-        print(contingency_table)
+        # print(contingency_table)
         
         # Perform Fisher's exact test
         odds_ratio, p_value = fisher_exact(contingency_table)
@@ -150,5 +147,31 @@ def perform_fisher_test(input_file, fisher_output):
     data.to_csv(fisher_output, sep='\t', index=False, header=False)
 
 """
-Merge neighboring bins 
+Merge neighboring enriched bins 
 """    
+def enriched_regions(fisher_p_value, merge_intervals):
+    # Read the TSV file (assuming you are using pandas)
+    df = pd.read_csv('./temp/merged_group_A_B_fisher.bed', sep='\t', header=None)
+
+    # Filter rows based on the p-value threshold 
+    df = df[df[7].astype(float) <= fisher_p_value]
+
+    # Compute the new column using the formula
+    df[9] = df[3] / (df[3] + df[4]) - df[5] / (df[5] + df[6])
+    df.to_csv('./temp/test.bed', sep='\t', index=False, header=False)
+
+    # Split the DataFrame into two groups
+    df_pos = df[df[9] > 0]
+    df_neg = df[df[9] < 0]
+
+    # Merge neighboring bins
+    df_pos_bed = pybedtools.BedTool.from_dataframe(df_pos)
+    merged_intervals_pos = df_pos_bed.merge(d=merge_intervals)
+    df_neg_bed = pybedtools.BedTool.from_dataframe(df_neg)
+    merged_intervals_neg = df_neg_bed.merge(d=merge_intervals)
+
+    # Write the merged intervals to BED files
+    merged_intervals_pos.saveas('DiffER_group_A_enriched_regions.bed')
+    merged_intervals_neg.saveas('DiffER_group_B_enriched_regions.bed')
+
+    print(f"Output created and saved as: \n - DiffER_group_A_enriched_regions.bed \n - DiffER_group_B_enriched_regions.bed")
