@@ -69,6 +69,7 @@ Arguments:
     --window_size WINDOW_SIZE     Size of the windows; default [50]
     --p_value P_VALUE             p-value threshold for Fisher's exact test; default [0.05]
     --distance DISTANCE           Maximum distance between intervals allowed to be merged; default [100]
+    --outfile OUTFILE           Output file prefix; default [DiffER]
 ```
 
 #### Example command with genome build
