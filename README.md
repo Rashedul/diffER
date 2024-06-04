@@ -69,7 +69,7 @@ Arguments:
     --window_size WINDOW_SIZE     Size of the windows; default [50]
     --p_value P_VALUE             p-value threshold for Fisher's exact test; default [0.05]
     --distance DISTANCE           Maximum distance between intervals allowed to be merged; default [100]
-    --outfile OUTFILE           Output file prefix; default [DiffER]
+    --outfile OUTFILE             Output file prefix; default [diffER]
 ```
 
 #### Example command with genome build
@@ -91,8 +91,8 @@ python diffER.py \
 #### Output files
 Two output files are created and saved as:  
 ```
-  - group_A_enriched_regions.bed 
-  - group_B_enriched_regions.bed
+  - diffER_group_A_enriched_regions.bed 
+  - diffER_group_B_enriched_regions.bed
 ```
 
 ### 4. Contact  
