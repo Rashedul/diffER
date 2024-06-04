@@ -1,6 +1,5 @@
 # Ignore files
-.DS_Store
-*.bed
+.DS_Store 
 
 # Ignore directory
 environment/
