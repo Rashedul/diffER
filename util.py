@@ -10,7 +10,8 @@ Create windows of specific size from a genome build
 """
 
 def make_windows_build(genome_build, window_size):
-# Create a BED object
+    print("Generating windows from genome build...")
+    # Create a BED object
     a = pybedtools.BedTool()
 
     # Create windows of specified size
@@ -35,7 +36,8 @@ Create windows of specific size from a genome file
 """
 
 def make_windows_file(genome_file, window_size):
-# Create a BED object
+    print("Generating windows from genome file...")
+    # Create a BED object
     a = pybedtools.BedTool()
 
     # Create windows of specified size
@@ -51,28 +53,73 @@ def make_windows_file(genome_file, window_size):
 Count number of bed files intersected (not-intersected) to the windows 
 """
 
+def ensure_consistent_columns(filepath):
+    with open(filepath, 'r') as file:
+        lines = file.readlines()
+
+    num_columns = len(lines[0].strip().split())
+    with open(filepath, 'w') as file:
+        for line in lines:
+            columns = line.strip().split()[:3]  # Keep only the first three columns
+
+            # Check for missing values
+            if len(columns) < 3:
+                raise ValueError(f"Missing values in line: {line.strip()}")
+            
+            # Ensure the second and third columns are integers (start and end positions)
+            try:
+                start = int(columns[1])
+                end = int(columns[2])
+            except ValueError:
+                raise ValueError(f"Second or third column contains non-integer value in line: {line.strip()}")
+
+            # Check for negative values
+            if start < 0 or end < 0:
+                raise ValueError(f"Negative values found in line: {line.strip()}")
+
+            file.write('\t'.join(columns) + '\n')
+
 def intersect_bedfiles(primary_bed, multiple_beds, output_filename):
+    print("Intersecting bed files with genomic windows")
+
+    # Ensure the temporary directory exists
+    os.makedirs("temp", exist_ok=True)
+
+    # Ensure primary_bed has consistent columns
+    ensure_consistent_columns(primary_bed)
+    
     # Read primary bed file
-    primary = pybedtools.BedTool(primary_bed)
+    window = pd.read_csv(primary_bed, sep='\t', header=None)
+    primary = pybedtools.BedTool.from_dataframe(window)
 
     # Initialize DataFrame for the primary bed file
-    primary_df = primary.to_dataframe()
-
-    # Add columns for intersected and non-intersected counts
+    primary_df = window.copy()
     primary_df['intersect_count'] = 0
     primary_df['non_intersect_count'] = 0
 
     # Process each multiple_bed file
     for bedfile in multiple_beds:
+        # Ensure bedfile has consistent columns
+        ensure_consistent_columns(bedfile)
+        
         # Read each multiple bed file
         bed = pybedtools.BedTool(bedfile)
 
         # Intersect primary with the multiple bed file
         intersected = primary.intersect(bed, c=True)
+        
+        # Check if intersected has any lines
+        # if len(intersected) == 0:
+        #     continue
+        
         intersected_df = intersected.to_dataframe()
 
+        # Check if intersected_df has the expected column
+        if intersected_df.shape[1] <= 0:
+            raise ValueError(f"Intersected DataFrame from {bedfile} has no columns.")
+
         # Update the intersect count
-        primary_df['intersect_count'] += intersected_df.iloc[:, -1]
+        primary_df['intersect_count'] += (intersected_df.iloc[:, -1] > 0).astype(int)
 
     # Calculate the non-intersect count
     primary_df['non_intersect_count'] = len(multiple_beds) - primary_df['intersect_count']
@@ -84,29 +131,14 @@ def intersect_bedfiles(primary_bed, multiple_beds, output_filename):
     filepath = os.path.join("temp", output_filename)
     result_bed.saveas(filepath)
 
-    return result_bed
-
-    # Extract arguments
-    primary_bed_file = sys.argv[1]
-    output_filename = sys.argv[-1]
-    multiple_bed_files = sys.argv[2:-1]
-
-    # Perform intersection
-    result_bed = intersect_bedfiles(primary_bed_file, multiple_bed_files, output_filename)
+    print(f"Intersection results saved to {filepath}")
 
 """
 Concate BED files of two groups  
 """
 
 def merge_groups(file1, file2, merge_output):
-    """
-    Merge two BED files by concatenating specific columns.
-
-    Parameters:
-    - file1 (str): Path to the first BED file.
-    - file2 (str): Path to the second BED file.
-    - output (str): Path to the output merged BED file.
-    """
+    print("Counting number of intersects...")
     # Read the BED files without considering the first row as column names
     file_1 = pd.read_csv(file1, sep='\t', header=None)
     file_2 = pd.read_csv(file2, sep='\t', header=None)
@@ -125,6 +157,7 @@ Fisher's Exact Test
 """
 
 def perform_fisher_test(input_file, fisher_output):
+    print("Performing Fisher's exact test...")
     # Read the TSV file without considering the first row as column names
     data = pd.read_csv(input_file, sep='\t', header=None)
     
@@ -155,7 +188,7 @@ def perform_fisher_test(input_file, fisher_output):
 """
 Merge neighboring enriched bins 
 """    
-def enriched_regions(fisher_p_value, merge_intervals):
+def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename):
     # Read the TSV file (assuming you are using pandas)
     df = pd.read_csv('./temp/merged_group_A_B_fisher.bed', sep='\t', header=None)
 
@@ -177,10 +210,10 @@ def enriched_regions(fisher_p_value, merge_intervals):
     merged_intervals_neg = df_neg_bed.merge(d=merge_intervals)
 
     # Write the merged intervals to BED files
-    merged_intervals_pos.saveas('group_A_enriched_regions.bed')
-    merged_intervals_neg.saveas('group_B_enriched_regions.bed')
+    merged_intervals_pos.saveas(f'{differ_output_filename}_group_A_enriched_regions.bed')
+    merged_intervals_neg.saveas(f'{differ_output_filename}_group_B_enriched_regions.bed')
 
-    print(f"Output created and saved as: \n - group_A_enriched_regions.bed \n - group_B_enriched_regions.bed")
+    print(f"Output created and saved as: \n - {differ_output_filename}_group_A_enriched_regions.bed \n - {differ_output_filename}_group_B_enriched_regions.bed")
 
 def remove_directory(dir_path):
     if os.path.exists(dir_path):
