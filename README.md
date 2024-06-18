@@ -20,7 +20,7 @@
 </table>
 
 ### 1. Requirements 
-- python >= 3.8
+- python >= 3.10
 - Linux
 
 ### 2. Installation
@@ -48,9 +48,7 @@ pip install -r requirements.txt
 ### 3. Run diffER
 
 #### Notes
-- Required parameters are `genome_build` or `genome_file`, `group_A_beds`, `group_B_beds`
-  - Examples of `genome_build` are `hg38`, `hg19`, `mm9`, `mm10` etc.  Check available genomes in `genomepy`. 
-  - Alternatively provide a `genome file` of your interest. Example of `genome file` is provided [here](./data/genome_file). 
+- Examples of `genome_build` are `hg38`, `hg19`, `mm9`, `mm10` etc. Check available genomes in `genomepy`. Alternatively provide a `genome file` of your interest. Example of `genome file` is provided [here](./data/genome_file). 
 - `group_A_beds` and `group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
 - Required number of samples per group is at least 4.
 
@@ -89,7 +87,7 @@ python diffER.py \
 ```
 
 #### Output files
-Two output files are created and saved as:  
+For each of the two groups, there are two output bed files containing enriched regions.   
 ```
   - diffER_group_A_enriched_regions.bed 
   - diffER_group_B_enriched_regions.bed
@@ -97,5 +95,3 @@ Two output files are created and saved as:
 
 ### 4. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
-
-### 5. Citation

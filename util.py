@@ -29,7 +29,6 @@ def make_windows_build(genome_build, window_size):
     # Save the windows to a new BED file in temp directory
     filepath = os.path.join("temp", output_bed)
     windows.saveas(filepath)
-    # print(f"Windows created and saved to {output_bed}")
 
 """
 Create windows of specific size from a genome file
@@ -58,29 +57,38 @@ def ensure_consistent_columns(filepath):
         lines = file.readlines()
 
     num_columns = len(lines[0].strip().split())
+    
+    parsed_lines = []
+    for line in lines:
+        columns = line.strip().split()[:3]  # Keep only the first three columns
+
+        # Check for missing values
+        if len(columns) < 3:
+            raise ValueError(f"Missing values in line: {line.strip()}")
+        
+        # Ensure the second and third columns are integers (start and end positions)
+        try:
+            start = int(columns[1])
+            end = int(columns[2])
+        except ValueError:
+            raise ValueError(f"Second or third column contains non-integer value in line: {line.strip()}")
+
+        # Check for negative values
+        if start < 0 or end < 0:
+            raise ValueError(f"Negative values found in line: {line.strip()}")
+        
+        parsed_lines.append((columns[0], start, end))
+    
+    # Sort lines first by chromosome, then by start, then by end
+    sorted_lines = sorted(parsed_lines, key=lambda x: (x[0], x[1], x[2]))
+
     with open(filepath, 'w') as file:
-        for line in lines:
-            columns = line.strip().split()[:3]  # Keep only the first three columns
+        for chromosome, start, end in sorted_lines:
+            file.write(f"{chromosome}\t{start}\t{end}\n")
 
-            # Check for missing values
-            if len(columns) < 3:
-                raise ValueError(f"Missing values in line: {line.strip()}")
-            
-            # Ensure the second and third columns are integers (start and end positions)
-            try:
-                start = int(columns[1])
-                end = int(columns[2])
-            except ValueError:
-                raise ValueError(f"Second or third column contains non-integer value in line: {line.strip()}")
-
-            # Check for negative values
-            if start < 0 or end < 0:
-                raise ValueError(f"Negative values found in line: {line.strip()}")
-
-            file.write('\t'.join(columns) + '\n')
 
 def intersect_bedfiles(primary_bed, multiple_beds, output_filename):
-    print("Intersecting bed files with genomic windows")
+    print("Intersecting bed files with genomic windows...")
 
     # Ensure the temporary directory exists
     os.makedirs("temp", exist_ok=True)
@@ -106,7 +114,7 @@ def intersect_bedfiles(primary_bed, multiple_beds, output_filename):
         bed = pybedtools.BedTool(bedfile)
 
         # Intersect primary with the multiple bed file
-        intersected = primary.intersect(bed, c=True)
+        intersected = primary.intersect(bed, c=True, sorted=True)
         
         # Check if intersected has any lines
         # if len(intersected) == 0:
@@ -197,7 +205,6 @@ def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename):
 
     # Compute the new column using the formula
     df[9] = df[3] / (df[3] + df[4]) - df[5] / (df[5] + df[6])
-    # df.to_csv('./temp/test.bed', sep='\t', index=False, header=False)
 
     # Split the DataFrame into two groups
     df_pos = df[df[9] > 0]

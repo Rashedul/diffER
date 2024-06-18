@@ -34,12 +34,6 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p
     # Remove intermediate files
     remove_directory('temp')
 
-## test
-# cd /home/rashedul/project/diffER
-# less temp/merged_group_A_B_fisher.bed | awk '$8<.5{print $0, $4/($4+$5) - $6/($6+$7)}' | awk '$10 > 0{print}' | bedtools merge -i stdin -d 100 >group_A_enriched.bed
-# less temp/merged_group_A_B_fisher.bed | awk '$8<.5{print $0, $4/($4+$5) - $6/($6+$7)}' | awk '$10 < 0{print}' | bedtools merge -i stdin -d 100 >group_B_enriched.bed
-# ##
-
 def main():
     # Parsing command line arguments
     parser = argparse.ArgumentParser(description="Differentially Enriched Regions (diffER)")
