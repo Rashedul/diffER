@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 from scipy.stats import fisher_exact
 import shutil
+import glob
 
 """
 Create windows of specific size from a genome build 
@@ -52,100 +53,46 @@ def make_windows_file(genome_file, window_size):
 Count number of bed files intersected (not-intersected) to the windows 
 """
 
-def ensure_consistent_columns(filepath):
-    with open(filepath, 'r') as file:
-        lines = file.readlines()
-
-    num_columns = len(lines[0].strip().split())
-    
-    parsed_lines = []
-    for line in lines:
-        columns = line.strip().split()[:3]  # Keep only the first three columns
-
-        # Check for missing values
-        if len(columns) < 3:
-            raise ValueError(f"Missing values in line: {line.strip()}")
-        
-        # Ensure the second and third columns are integers (start and end positions)
-        try:
-            start = int(columns[1])
-            end = int(columns[2])
-        except ValueError:
-            raise ValueError(f"Second or third column contains non-integer value in line: {line.strip()}")
-
-        # Check for negative values
-        if start < 0 or end < 0:
-            raise ValueError(f"Negative values found in line: {line.strip()}")
-        
-        parsed_lines.append((columns[0], start, end))
-    
-    # Sort lines first by chromosome, then by start, then by end
-    sorted_lines = sorted(parsed_lines, key=lambda x: (x[0], x[1], x[2]))
-
-    with open(filepath, 'w') as file:
-        for chromosome, start, end in sorted_lines:
-            file.write(f"{chromosome}\t{start}\t{end}\n")
-
-
-def intersect_bedfiles(primary_bed, multiple_beds, output_filename):
+def intersect_bedfiles(primary_bed, bed_files_pattern, output_filename, output_directory):
     print("Intersecting bed files with genomic windows...")
-
-    # Ensure the temporary directory exists
-    os.makedirs("temp", exist_ok=True)
-
-    # Ensure primary_bed has consistent columns
-    ensure_consistent_columns(primary_bed)
     
-    # Read primary bed file
+    # Read primary bed file and sort
     window = pd.read_csv(primary_bed, sep='\t', header=None)
-    primary = pybedtools.BedTool.from_dataframe(window)
+    primary = pybedtools.BedTool.from_dataframe(window).sort()
 
     # Initialize DataFrame for the primary bed file
-    primary_df = window.copy()
+    primary_df = primary.to_dataframe()
     primary_df['intersect_count'] = 0
     primary_df['non_intersect_count'] = 0
 
-    # Process each multiple_bed file
-    for bedfile in multiple_beds:
-        # Ensure bedfile has consistent columns
-        ensure_consistent_columns(bedfile)
-        
-        # Read each multiple bed file
-        bed = pybedtools.BedTool(bedfile)
-
-        # Intersect primary with the multiple bed file
+    # Process each bed file individually
+    for bedfile in bed_files_pattern:
+        bed = pybedtools.BedTool(bedfile).sort()
         intersected = primary.intersect(bed, c=True, sorted=True)
-        
-        # Check if intersected has any lines
-        # if len(intersected) == 0:
-        #     continue
-        
         intersected_df = intersected.to_dataframe()
 
-        # Check if intersected_df has the expected column
-        if intersected_df.shape[1] <= 0:
-            raise ValueError(f"Intersected DataFrame from {bedfile} has no columns.")
-
-        # Update the intersect count
+        # Update the intersect count 
         primary_df['intersect_count'] += (intersected_df.iloc[:, -1] > 0).astype(int)
 
     # Calculate the non-intersect count
-    primary_df['non_intersect_count'] = len(multiple_beds) - primary_df['intersect_count']
+    primary_df['non_intersect_count'] = len(bed_files_pattern) - primary_df['intersect_count']
 
     # Convert DataFrame back to BedTool object
     result_bed = pybedtools.BedTool.from_dataframe(primary_df)
 
-    # Save the result to the specified file
-    filepath = os.path.join("temp", output_filename)
-    result_bed.saveas(filepath)
+    # Determine the output file path
+    output_filepath = os.path.join(output_directory, output_filename)
 
-    print(f"Intersection results saved to {filepath}")
+    # Save the result to the specified file
+    result_bed.saveas(output_filepath)
+
+    print(f"Intersection counts saved to {output_filepath}")
 
 """
 Concate BED files of two groups  
 """
 
-def merge_groups(file1, file2, merge_output):
+def merge_groups(file1, file2, merge_output, output_directory):
     print("Counting number of intersects...")
     # Read the BED files without considering the first row as column names
     file_1 = pd.read_csv(file1, sep='\t', header=None)
@@ -156,9 +103,17 @@ def merge_groups(file1, file2, merge_output):
     
     # Concatenate the columns to file_1
     result = pd.concat([file_1, columns_to_add], axis=1)
+
+    # Remove rows where there are not intersections in each group  
+    result = result[(result.iloc[:, 3] != 0) & (result.iloc[:, 5] != 0)]
+    
+    # Determine the output file path
+    output_filepath = os.path.join(output_directory, merge_output)
     
     # Save the resulting DataFrame to a new BED file
-    result.to_csv(merge_output, sep='\t', index=False, header=False)
+    result.to_csv(output_filepath, sep='\t', index=False, header=False)
+    
+    print(f"Merged output saved to {output_filepath}")
 
 """
 Fisher's Exact Test 

@@ -9,7 +9,9 @@ from util import (
     remove_directory
 ) 
 
-def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p_value, distance, outfile):
+# python diffER.py --genome_file ./data/genome_chr1 --group_A_beds ./data/uCLL/*bed --group_B_beds ./data/mCLL/*bed 
+
+def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p_value, distance, outfile, outdir):
     # Create windows of specified size
     if genome_build: 
         make_windows_build(genome_build, window_size)
@@ -19,11 +21,11 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p
         raise ValueError("Either genome_build or genome_file must be provided.")
 
     # Intersect primary BED with group A and B BED files
-    intersect_bedfiles('./temp/windows.bed', group_A_beds, "group_A_intersect.bed")
-    intersect_bedfiles('./temp/windows.bed', group_B_beds, "group_B_intersect.bed")
+    intersect_bedfiles('./temp/windows.bed', group_A_beds, "group_A_intersect.bed", './temp')
+    intersect_bedfiles('./temp/windows.bed', group_B_beds, "group_B_intersect.bed", './temp')
 
     # Merge two files containing the number of intersections (and non-intersection) of samples in group_A and group_B
-    merge_groups('./temp/group_A_intersect.bed', './temp/group_B_intersect.bed', './temp/merged_group_A_B.bed')
+    merge_groups('./temp/group_A_intersect.bed', './temp/group_B_intersect.bed', 'merged_group_A_B.bed', './temp')
     
     # Fisher's exact test
     perform_fisher_test('./temp/merged_group_A_B.bed', './temp/merged_group_A_B_fisher.bed')
@@ -32,7 +34,7 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p
     enriched_regions(p_value, distance, outfile)
 
     # Remove intermediate files
-    remove_directory('temp')
+    # remove_directory('temp')
 
 def main():
     # Parsing command line arguments
@@ -45,6 +47,7 @@ def main():
     parser.add_argument("--p_value", type=float, default=0.05, help="p-value threshold for Fisher's exact test; default [0.05]")
     parser.add_argument("--distance", type=int, default=100, help=" Maximum distance between intervals allowed to be merged; default [100]")
     parser.add_argument("--outfile", required=False, default="diffER", help="Output file prefix")
+    parser.add_argument("--outdir", required=False, default="outdir", help="Output direcory name")
     args = parser.parse_args()
 
     # Call the diffER function with parsed arguments
@@ -55,7 +58,8 @@ def main():
         args.window_size, 
         args.p_value, 
         args.distance, 
-        args.outfile)
+        args.outfile,
+        args.outdir)
 
 if __name__ == "__main__":
     main()
