@@ -73,7 +73,7 @@ Arguments:
                         Size of the windows; default [50]
   --p_value P_VALUE     p-value threshold for Fisher's exact test; default [0.05]
   --distance DISTANCE   Maximum distance between intervals allowed to be merged; default [100]
-  --outfile OUTFILE     Output file prefix; default [DiffER]
+  --outfile OUTFILE     Output file prefix; default [diffER]
   --outdir OUTDIR       Output direcory name; default [current direcory]
 ```
 
