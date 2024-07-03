@@ -48,7 +48,7 @@ pip install -r requirements.txt
 ### 3. Run diffER
 
 #### Notes
-- Examples of `genome_build` are `hg38`, `hg19`, `mm9`, `mm10` etc. Check available genomes in `genomepy`. Alternatively provide a `genome file` of your interest. Example of `genome file` is provided [here](./data/genome_file). 
+- provide a `--genome file` of your interest. Example of `genome file` is provided [here](./data/genome_file). Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Check available genomes in `genomepy`.   
 - `group_A_beds` and `group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
 - Required number of samples per group is at least 4.
 
@@ -94,7 +94,9 @@ python diffER.py \
 ```
 
 #### Output files
-For each of the two groups, there are two output bed files containing enriched regions.   
+For each of the two groups, there are two output bed files containing enriched regions. 
+
+Note: You may remove regions below a cutoff depending on the assay. For example, we recommend to filter out regions below 300bp for broad marks.   
 ```
   - diffER_group_A_enriched_regions.bed 
   - diffER_group_B_enriched_regions.bed
