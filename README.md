@@ -57,25 +57,24 @@ pip install -r requirements.txt
 python diffER.py -h
 
 Usage:
-    python diffER.py [--genome_build GENOME_BUILD | --genome_file GENOME_FILE] --group_A_beds GROUP_A_BEDS [--group_B_beds GROUP_B_BEDS] [--window_size WINDOW_SIZE] [--p_value P_VALUE] [--distance DISTANCE]
+    python diffER.py [--genome_build GENOME_BUILD | --genome_file GENOME_FILE] --group_A_beds GROUP_A_BEDS [--group_B_beds GROUP_B_BEDS] [--window_size WINDOW_SIZE] [--p_value P_VALUE] [--distance DISTANCE] [--outfile OUTFILE] [--outdir OUTDIR]  
 
 Arguments:
-    --genome_build GENOME_BUILD   Input genome build name
-    --genome_file GENOME_FILE     Input genome file
-    --group_A_beds GROUP_A_BEDS   Input group A BED files (multiple allowed)
-    --group_B_beds GROUP_B_BEDS   Input group B BED files (multiple allowed)
-    --window_size WINDOW_SIZE     Size of the windows; default [50]
-    --p_value P_VALUE             p-value threshold for Fisher's exact test; default [0.05]
-    --distance DISTANCE           Maximum distance between intervals allowed to be merged; default [100]
-    --outfile OUTFILE             Output file prefix; default [diffER]
-```
-
-#### Example command with genome build
-```
-python diffER.py \
-    --genome_build hg38 \
-    --group_A_beds ./data/sample_A*.bed \
-    --group_B_beds ./data/sample_B*.bed
+  -h, --help            show this help message and exit
+  --genome_build GENOME_BUILD
+                        Input genome build name
+  --genome_file GENOME_FILE
+                        Input genome file
+  --group_A_beds GROUP_A_BEDS [GROUP_A_BEDS ...]
+                        Input group A BED files [required]
+  --group_B_beds GROUP_B_BEDS [GROUP_B_BEDS ...]
+                        Input group B BED files [required]
+  --window_size WINDOW_SIZE
+                        Size of the windows; default [50]
+  --p_value P_VALUE     p-value threshold for Fisher's exact test; default [0.05]
+  --distance DISTANCE   Maximum distance between intervals allowed to be merged; default [100]
+  --outfile OUTFILE     Output file prefix; default [DiffER]
+  --outdir OUTDIR       Output direcory name; default [current direcory]
 ```
 
 #### Example command with genome file 
@@ -84,6 +83,14 @@ python diffER.py \
     --genome_file ./data/genome_file \
     --group_A_beds ./data/sample_A*.bed \
     --group_B_beds ./data/sample_B*.bed 
+```
+
+#### Example command with genome build
+```
+python diffER.py \
+    --genome_build hg38 \
+    --group_A_beds ./data/sample_A*.bed \
+    --group_B_beds ./data/sample_B*.bed
 ```
 
 #### Output files

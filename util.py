@@ -106,11 +106,7 @@ def merge_groups(file1, file2, merge_output, output_directory):
 
     # Remove rows where there are not intersections in each group  
     result = result[(result.iloc[:, 3] != 0) & (result.iloc[:, 5] != 0)]
-    
-    # Determine the output file path
     output_filepath = os.path.join(output_directory, merge_output)
-    
-    # Save the resulting DataFrame to a new BED file
     result.to_csv(output_filepath, sep='\t', index=False, header=False)
     
     print(f"Merged output saved to {output_filepath}")
@@ -151,7 +147,12 @@ def perform_fisher_test(input_file, fisher_output):
 """
 Merge neighboring enriched bins 
 """    
-def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename):
+
+def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename, output_directory):
+
+    # Ensure the output directory exists
+    os.makedirs(output_directory, exist_ok=True)
+
     # Read the TSV file (assuming you are using pandas)
     df = pd.read_csv('./temp/merged_group_A_B_fisher.bed', sep='\t', header=None)
 
@@ -171,11 +172,15 @@ def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename):
     df_neg_bed = pybedtools.BedTool.from_dataframe(df_neg)
     merged_intervals_neg = df_neg_bed.merge(d=merge_intervals)
 
-    # Write the merged intervals to BED files
-    merged_intervals_pos.saveas(f'{differ_output_filename}_group_A_enriched_regions.bed')
-    merged_intervals_neg.saveas(f'{differ_output_filename}_group_B_enriched_regions.bed')
+    # Construct output file paths
+    output_file_pos = os.path.join(output_directory, f'{differ_output_filename}_group_A_enriched_regions.bed')
+    output_file_neg = os.path.join(output_directory, f'{differ_output_filename}_group_B_enriched_regions.bed')
 
-    print(f"Output created and saved as: \n - {differ_output_filename}_group_A_enriched_regions.bed \n - {differ_output_filename}_group_B_enriched_regions.bed")
+    # Write the merged intervals to BED files
+    merged_intervals_pos.saveas(output_file_pos)
+    merged_intervals_neg.saveas(output_file_neg)
+
+    print(f"Output created and saved as: \n - {output_directory}/{differ_output_filename}_group_A_enriched_regions.bed \n - {output_directory}/{differ_output_filename}_group_B_enriched_regions.bed")
 
 def remove_directory(dir_path):
     if os.path.exists(dir_path):

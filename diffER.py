@@ -9,7 +9,7 @@ from util import (
     remove_directory
 ) 
 
-# python diffER.py --genome_file ./data/genome_chr1 --group_A_beds ./data/uCLL/*bed --group_B_beds ./data/mCLL/*bed 
+# python diffER.py --genome_file ./data/genome_chr1 --group_A_beds ./data/uCLL/*bed --group_B_beds ./data/mCLL/*bed --window_size 1000
 
 def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p_value, distance, outfile, outdir):
     # Create windows of specified size
@@ -31,7 +31,7 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p
     perform_fisher_test('./temp/merged_group_A_B.bed', './temp/merged_group_A_B_fisher.bed')
 
     # Generate ERs per group
-    enriched_regions(p_value, distance, outfile)
+    enriched_regions(p_value, distance, outfile, outdir)
 
     # Remove intermediate files
     # remove_directory('temp')
@@ -41,13 +41,13 @@ def main():
     parser = argparse.ArgumentParser(description="Differentially Enriched Regions (diffER)")
     parser.add_argument("--genome_build", required=False, help="Input genome build name")
     parser.add_argument("--genome_file", required=False, help="Input genome file")
-    parser.add_argument("--group_A_beds", required=True, nargs='+', help="Input group A BED files")
-    parser.add_argument("--group_B_beds", required=True, nargs='+', help="Input group B BED files")
+    parser.add_argument("--group_A_beds", required=True, nargs='+', help="Input group A BED files [required]")
+    parser.add_argument("--group_B_beds", required=True, nargs='+', help="Input group B BED files [required]")
     parser.add_argument("--window_size", type=int, default=50, help="Size of the windows; default [50]")
     parser.add_argument("--p_value", type=float, default=0.05, help="p-value threshold for Fisher's exact test; default [0.05]")
     parser.add_argument("--distance", type=int, default=100, help=" Maximum distance between intervals allowed to be merged; default [100]")
-    parser.add_argument("--outfile", required=False, default="diffER", help="Output file prefix")
-    parser.add_argument("--outdir", required=False, default="outdir", help="Output direcory name")
+    parser.add_argument("--outfile", required=False, default="diffER", help="Output file prefix; default [DiffER]")
+    parser.add_argument("--outdir", required=False, default=".", help="Output direcory name; default  [current direcory]")
     args = parser.parse_args()
 
     # Call the diffER function with parsed arguments
