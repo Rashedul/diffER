@@ -22,6 +22,7 @@
 ### 1. Requirements 
 - python >= 3.10
 - Linux
+- macOS >= 13.5
 
 ### 2. Installation
 
