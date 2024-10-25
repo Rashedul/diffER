@@ -52,6 +52,7 @@ pip install -r requirements.txt
 - Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/genome_file). Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Check available genomes in `genomepy`.  
 - `--group_A_beds` and `--group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
 - Required number of samples per group is at least 4.
+- diffER pipeline has been tested on the peaks called by `FindER (v2.0.0)`. Finder documentation is available [here](https://thisisepigenetics.ca/data/CEMT/tools/finder1/index.html). Download the `FindER (v2.0.0)` from [here].
 
 #### Usage
 ```
