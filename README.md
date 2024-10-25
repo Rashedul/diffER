@@ -9,7 +9,7 @@
         <li> Split the genome into non-overlapping bins.</li>
         <li> Calculate the number of samples per group that have (or have not) peaks in each bin.</li>
         <li> Fisher’s exact test to identify the differentially enriched bins between two groups.</li>
-		<li> Merged the neighboring bins that are differentially enriched.</li>
+		<li> Merge the neighboring bins that are differentially enriched.</li>
       </ol>
       <br>
     </td>
@@ -97,11 +97,24 @@ python diffER.py \
 #### Output files
 For each of the two groups, there are two output bed files containing enriched regions. 
 
-**Note:** You may remove regions below a cutoff depending on the assay. For example, we recommend to filter out regions below 300bp for broad marks.   
 ```
   - diffER_group_A_enriched_regions.bed 
   - diffER_group_B_enriched_regions.bed
 ```
 
+#### Note:
+
+- Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we suggest filtering out regions under 300bp for broad marks.
+- You might also experiment with various p-values and assess quality by visualizing the results in a heatmap or profile plot.
+
+The output files contail n columns such as `chr` `start` `end` and `p-value`
+
+```
+$ head diffER_group_A_enriched_regions.bed
+
+```
+
 ### 4. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
+
+### 5. Citation  
