@@ -105,7 +105,7 @@ For each of the two groups, there are two output bed files containing enriched r
 #### Note:
 
 - Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we suggest filtering out regions under 300bp for broad marks.
-- You might also experiment with various p-values and assess quality by visualizing the results in a heatmap or profile plot.
+- You might also experiment with different p-values and assess quality by visualizing the results in a heatmap or profile plot.
 
 The output files contail n columns such as `chr` `start` `end` and `p-value`
 
