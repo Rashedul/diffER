@@ -44,7 +44,7 @@ def main():
     parser.add_argument("--group_A_beds", required=True, nargs='+', help="Input group A BED files [required]")
     parser.add_argument("--group_B_beds", required=True, nargs='+', help="Input group B BED files [required]")
     parser.add_argument("--window_size", type=int, default=50, help="Size of the windows; default [50]")
-    parser.add_argument("--p_value", type=float, default=0.05, help="p-value threshold for Fisher's exact test; default [0.05]")
+    parser.add_argument("--p_value", type=float, default=0.03, help="p-value threshold for Fisher's exact test; default [0.05]")
     parser.add_argument("--distance", type=int, default=100, help=" Maximum distance between intervals allowed to be merged; default [100]")
     parser.add_argument("--outfile", required=False, default="diffER", help="Output file prefix; default [diffER]")
     parser.add_argument("--outdir", required=False, default=".", help="Output direcory name; default  [current direcory]")

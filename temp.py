@@ -1,3 +1,12 @@
+# compare
+python diffER.py \
+    --genome_file ./data/CHROMSIZES_hg38_chr10.txt \
+    --group_A_beds ./data/uCLL/*.bed \
+    --group_B_beds ./data/mCLL/*.bed \
+    --p_value 0.03 \
+    --window_size 50
+
+
 import pybedtools
 import pandas as pd
 import argparse
