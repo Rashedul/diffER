@@ -86,12 +86,12 @@ python diffER.py \
     --group_B_beds ./data/mCLL/*.bed 
 ```
 
-#### Example command with genome build
+#### Example command with genome build 
 ```
 python diffER.py \
     --genome_build hg38 \
-    --group_A_beds ./data/mCLL/*.bed \
-    --group_B_beds ./data/uCLL/*.bed
+    --group_A_beds ./data/uCLL/*.bed \
+    --group_B_beds ./data/mCLL/*.bed
 ```
 
 #### Output files
@@ -125,7 +125,7 @@ python plot_heatmap.py -i diffER_group_B_enriched_regions.bed -s "./data/*CLL/*.
 - Heatmaps for group_A (n=7) and group_B (n=13) enriched regions.
 - The fraction of enriched regions occupied by peaks is used to generate heatmaps.
 
-### 4. Contact  
+### 5. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
 ### 6. Citation  
