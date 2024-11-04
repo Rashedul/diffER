@@ -31,8 +31,22 @@ cd /projects/blueprint_CLL_dart2/jsteif/differential_results/tmp_bash
 less H3K27me3_cll_mutated_cll_unmutated_chr10_0.03 | wc -l 
 # 16,036
 
+# js
 less H3K27me3_cll_mutated_cll_unmutated_chr10_0.03 | grep -v "chromosome" | tr ',' "\t" | awk '{print $1 "\t" $2 "\t" $2+50}' | sort -k1,1 -k2,2n | bedtools merge -i stdin -d 100 | wc -l
 # 5097
+
+# js merge 100, min len 300bp
+less H3K27me3_cll_mutated_cll_unmutated_chr10_0.03 | grep -v "chromosome" | tr ',' "\t" | awk '{print $1 "\t" $2 "\t" $2+50}' | sort -k1,1 -k2,2n | bedtools merge -i stdin -d 100 | awk '$3-$2 >=300{print $0}' >js.bed 
+#785
+
+# ri
+cat <(cat ../*bed) | awk '$3-$2 >= 300 {print $0}' >ri.bed 
+# 459
+
+# 60% overlap
+bedtools intersect -a ri.bed -b js.bed| wc
+# 272
+
 
 # 
 python diffER.py \
@@ -62,8 +76,21 @@ Performing Fisher's exact test...
 
 #
 cd /Users/rashedulislam/Documents/diffER/temp/
-bedtools intersect -a chr10_68650_68700 -b ../data/mCLL/*bed | wc -l
-bedtools intersect -a chr10_68650_68700 -b ../data/uCLL/*bed | wc -l
+bedtools intersect -a chr10_68650_68700 -b ../data/mCLL/*bed -wo | wc -l
+bedtools intersect -a chr10_68650_68700 -b ../data/uCLL/*bed -wo | wc -l
+
+# only 50% overlap at chr10
+less H3K27me3_cll_mutated_cll_unmutated_chr10_0.03 | grep -v "chromosome" | tr ',' "\t" | awk '{print $1 "\t" $2 "\t" $2+50}' | sort -k1,1 -k2,2n | bedtools merge -i stdin -d 100 | bedtools intersect -b stdin -a <(cat ../*bed) -u | wc -l
+
+
+# js dir
+/projects/epigenomics_assembly/jsteif/IHEC/postgresql_tables
+/projects/epigenomics3/temp/jsteif
+
+less /projects/epigenomics3/epigenomics3_results/users/jsteif/scripts/TERM3/reference_epigenome/binned_reference_epigenome_w_bamCoverage_V3/IHEC/sample_database_prep/run_primary_table_maker.sh
+
+# table maker
+less /projects/epigenomics3/epigenomics3_results/users/jsteif/scripts/TERM3/reference_epigenome/binned_reference_epigenome_w_bamCoverage_V3/IHEC/sample_database_prep/opt_CEMT_primary_table_maker.R
 
 ################################
 # fisher test

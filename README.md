@@ -82,6 +82,12 @@ Arguments:
 #### Example command with genome file 
 ```
 python diffER.py \
+    --genome_file ./data/CHROMSIZES_hg38_chr10.txt \
+    --group_A_beds ./data/mCLL/*.bed \
+    --group_B_beds ./data/uCLL/*.bed 
+
+# bk
+python diffER.py \
     --genome_file ./data/genome_file \
     --group_A_beds ./data/sample_A*.bed \
     --group_B_beds ./data/sample_B*.bed 
@@ -96,7 +102,8 @@ python diffER.py \
 ```
 
 #### Output files
-For each of the two groups, there are two output bed files containing enriched regions. 
+- For each of the two groups, there are two output bed files containing enriched regions. 
+- The output files contail n columns such as `chr` `start` `end` 
 
 ```
   - diffER_group_A_enriched_regions.bed 
@@ -106,14 +113,21 @@ For each of the two groups, there are two output bed files containing enriched r
 #### Note:
 
 - Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we suggest filtering out regions under 300bp for broad marks.
-- You might also experiment with different p-values and assess quality by visualizing the results in a heatmap or profile plot.
 
-The output files contail n columns such as `chr` `start` `end` and `p-value`
+### Plot healmap
 
-```
-$ head diffER_group_A_enriched_regions.bed
+- You may experiment with different p-values and assess quality by visualizing the results in a heatmap or profile plot. You can use `plot_heatmap.py` to generate a heatmap. 
 
 ```
+python plot_heatmap.py -i diffER_group_A_enriched_regions.bed -s "./data/*CLL/*.bed" -o output.csv -img heatmap1
+
+python plot_heatmap.py -i diffER_group_B_enriched_regions.bed -s "./data/*CLL/*.bed" -o output2.csv -img heatmap2
+```
+
+![ER 1](./data/heatmap1.png)
+
+![ER 2](./data/heatmap2.png)
+
 
 ### 4. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
