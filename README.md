@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 #### Note:
 - Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/CHROMSIZES_hg38.txt). 
-- Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Find the available genomes in `pybedtools`.
+- Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Find the available genomes in `pybedtools` by searching the genome build such as `hg38`.
 ```
 import pybedtools
 pybedtools.genome_registry.hg38
@@ -119,9 +119,17 @@ python diffER.py \
 - You may experiment with different p-values and check quality by visualizing the results in a heatmap or profile plot. You can use `plot_heatmap.py` to generate a heatmap. 
 
 ```
-python plot_heatmap.py -i diffER_group_A_enriched_regions.bed -s "./data/*CLL/*.bed" -o output.csv -img heatmap1
+python plot_heatmap.py \
+        -i diffER_group_A_enriched_regions.bed \
+        -s "./data/*CLL/*.bed" \
+        -o output.csv \
+        -img heatmap1
 
-python plot_heatmap.py -i diffER_group_B_enriched_regions.bed -s "./data/*CLL/*.bed" -o output2.csv -img heatmap2
+python plot_heatmap.py \
+        -i diffER_group_B_enriched_regions.bed \
+        -s "./data/*CLL/*.bed" \
+        -o output2.csv \
+        -img heatmap2
 ```
 
 <div style="display: flex; justify-content: space-between;">
@@ -129,8 +137,9 @@ python plot_heatmap.py -i diffER_group_B_enriched_regions.bed -s "./data/*CLL/*.
   <img src="./data/heatmap2.png" alt="Figure 2" style="width: 45%;"/>
 </div>
 
-- Heatmaps for group_A (n = 7 samples) and group_B (n = 13 samples) enriched regions at chr10.
 - The fraction of enriched regions occupied by peaks is used to generate heatmaps.
+- Heatmaps for group_A (n = 7 samples) and group_B (n = 13 samples) enriched regions at chr10.
+- `output1.csv` and `output2.csv` contain the data used in heatmap.
 
 ### 5. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
