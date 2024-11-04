@@ -124,6 +124,12 @@ python plot_heatmap.py -i diffER_group_A_enriched_regions.bed -s "./data/*CLL/*.
 python plot_heatmap.py -i diffER_group_B_enriched_regions.bed -s "./data/*CLL/*.bed" -o output2.csv -img heatmap2
 ```
 
+<div style="display: flex; justify-content: space-between;">
+  <img src="./data/heatmap1.png" alt="Figure 1" style="width: 45%;"/>
+  <img src="./data/heatmap2.png" alt="Figure 2" style="width: 45%;"/>
+</div>
+
+
 ![ER 1](./data/heatmap1.png)
 
 ![ER 2](./data/heatmap2.png)
