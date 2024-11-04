@@ -104,7 +104,7 @@ def merge_groups(file1, file2, merge_output, output_directory):
     # Concatenate the columns to file_1
     result = pd.concat([file_1, columns_to_add], axis=1)
 
-    # Remove rows where there are not intersections in each group  
+    # Remove rows where there are no intersections in both groups  
     result = result[(result.iloc[:, 3] != 0) & (result.iloc[:, 5] != 0)]
     output_filepath = os.path.join(output_directory, merge_output)
     result.to_csv(output_filepath, sep='\t', index=False, header=False)
@@ -117,7 +117,7 @@ Fisher's Exact Test
 
 def perform_fisher_test(input_file, fisher_output):
     print("Performing Fisher's exact test...")
-    # Read the TSV file without considering the first row as column names
+    # Read file without considering the first row as column names
     data = pd.read_csv(input_file, sep='\t', header=None)
     
     # Initialize lists to store p-values and odds ratios
@@ -141,7 +141,7 @@ def perform_fisher_test(input_file, fisher_output):
     data[7] = p_values
     data[8] = odds_ratios
     
-    # Save the resulting DataFrame to a new TSV file
+    # Save the resulting DataFrame to a new file
     data.to_csv(fisher_output, sep='\t', index=False, header=False)
 
 """
@@ -153,7 +153,7 @@ def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename, ou
     # Ensure the output directory exists
     os.makedirs(output_directory, exist_ok=True)
 
-    # Read the TSV file (assuming you are using pandas)
+    # Read the file (assuming you are using pandas)
     df = pd.read_csv('./temp/merged_group_A_B_fisher.bed', sep='\t', header=None)
 
     # Filter rows based on the p-value threshold 

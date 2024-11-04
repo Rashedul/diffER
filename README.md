@@ -20,7 +20,7 @@
 </table>
 
 ### 1. Requirements 
-- python >= 3.10
+- Python >= 3.10
 - Linux
 - macOS >= 13.5
 
