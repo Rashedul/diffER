@@ -49,7 +49,14 @@ pip install -r requirements.txt
 ### 3. Run diffER
 
 #### Note:
-- Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/CHROMSIZES_hg38.txt). Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used.   
+- Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/CHROMSIZES_hg38.txt). 
+- Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Find the available genomes in `pybedtools`.
+```
+import pybedtools
+pybedtools.genome_registry.hg38
+or
+pybedtools.chromosomesizes("hg38")
+```
 - `--group_A_beds` and `--group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
 - Required number of samples per group is at least 4.
 
@@ -105,7 +112,7 @@ python diffER.py \
 
 #### Note:
 
-- Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we suggest filtering out regions under 300bp for broad marks.
+- Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we recommend filtering out regions under 300bp for broad marks.
 
 ### 4. Plot healmap
 
