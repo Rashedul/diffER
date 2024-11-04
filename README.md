@@ -114,7 +114,7 @@ python diffER.py \
 
 - Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we recommend filtering out regions under 300bp for broad marks.
 
-### 4. Plot healmap
+### 4. Plot heatmap
 
 - You may experiment with different p-values and check quality by visualizing the results in a heatmap or profile plot. You can use `plot_heatmap.py` to generate a heatmap. 
 
