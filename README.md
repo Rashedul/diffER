@@ -49,7 +49,7 @@ pip install -r requirements.txt
 ### 3. Run diffER
 
 #### Note:
-- Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/genome_file). Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used.   
+- Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/CHROMSIZES_hg38.txt). Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used.   
 - `--group_A_beds` and `--group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
 - Required number of samples per group is at least 4.
 
@@ -82,8 +82,8 @@ Arguments:
 ```
 python diffER.py \
     --genome_file ./data/CHROMSIZES_hg38_chr10.txt \
-    --group_A_beds ./data/mCLL/*.bed \
-    --group_B_beds ./data/uCLL/*.bed 
+    --group_A_beds ./data/uCLL/*.bed \
+    --group_B_beds ./data/mCLL/*.bed 
 ```
 
 #### Example command with genome build

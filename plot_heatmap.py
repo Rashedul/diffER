@@ -26,7 +26,7 @@ def main(intervals_path, sample_pattern, output_file, image_file):
         # Intersect sample with main intervals using the -wo option to get overlap length
         intersected = main_intervals.intersect(sample_bed, wo=True)
         
-        # Calculate the fraction of interval overlapped for each interval
+        # Calculate the fraction of enriched regions occupied by peaks
         for feature in intersected:
             # Identify the main interval from the intersection output
             interval = pybedtools.create_interval_from_list([feature[0], feature[1], feature[2]])
@@ -48,20 +48,21 @@ def main(intervals_path, sample_pattern, output_file, image_file):
     df.to_csv(output_file, index=True)
     print(f"Data has been written to '{output_file}'")
 
-    # Generate a clustered heatmap with hierarchical clustering on the rows and no clustering on the columns
+    # Plot heatmap
     g = sns.clustermap(df, cmap="viridis", col_cluster=False, row_cluster=False, figsize=(10, 8), 
                        xticklabels=False, yticklabels=False)
 
     # Save the heatmap as an image file
     plt.savefig(image_file, dpi=300, bbox_inches='tight')  # Save as specified image file with 300 DPI and tight bounding box
+    print(f"heatmap has been written to '{image_file}'")
 
     # Display the plot
-    plt.show()
+    # plt.show()
 
 if __name__ == "__main__":
     # Set up argument parser
-    parser = argparse.ArgumentParser(description="Calculate fraction of intervals covered by peaks in multiple BED files.")
-    parser.add_argument("-i", "--intervals", required=True, help="Path to the main intervals BED file (e.g., intervals.bed)")
+    parser = argparse.ArgumentParser(description="Calculate fraction of enriched regions covered by peaks using multiple BED files.")
+    parser.add_argument("-i", "--intervals", required=True, help="Path to the main intervals BED file (e.g., diffER_group_A_enriched_regions.bed)")
     parser.add_argument("-s", "--samples", required=True, help="Glob pattern for sample BED files (e.g., '*.bed')")
     parser.add_argument("-o", "--output", default="interval_fraction_coverage.csv", help="Output CSV file name")
     parser.add_argument("-img", "--image", default="heatmap.png", help="Output image file name for the heatmap")
@@ -69,7 +70,4 @@ if __name__ == "__main__":
     # Parse arguments
     args = parser.parse_args()
 
-    # Run the main function with provided arguments
     main(args.intervals, args.samples, args.output, args.image)
-
-# python plot_heatmap.py -i intervals.bed -s "../data/*CLL/*.bed" -o output.csv -img heatmap
