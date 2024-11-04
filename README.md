@@ -49,10 +49,9 @@ pip install -r requirements.txt
 ### 3. Run diffER
 
 #### Note:
-- Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/genome_file). Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Check available genomes in `genomepy`.  
+- Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/genome_file). Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used.   
 - `--group_A_beds` and `--group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
 - Required number of samples per group is at least 4.
-- diffER pipeline has been tested on the peaks called by `FindER (v2.0.0)`. Finder documentation is available [here](https://thisisepigenetics.ca/data/CEMT/tools/finder1/index.html). Download the `FindER (v2.0.0)` from [here].
 
 #### Usage
 ```
@@ -79,26 +78,20 @@ Arguments:
   --outdir OUTDIR       Output direcory name; default [current direcory]
 ```
 
-#### Example command with genome file 
+#### Example command with genome file (hg38:chr10)
 ```
 python diffER.py \
     --genome_file ./data/CHROMSIZES_hg38_chr10.txt \
     --group_A_beds ./data/mCLL/*.bed \
     --group_B_beds ./data/uCLL/*.bed 
-
-# bk
-python diffER.py \
-    --genome_file ./data/genome_file \
-    --group_A_beds ./data/sample_A*.bed \
-    --group_B_beds ./data/sample_B*.bed 
 ```
 
 #### Example command with genome build
 ```
 python diffER.py \
     --genome_build hg38 \
-    --group_A_beds ./data/sample_A*.bed \
-    --group_B_beds ./data/sample_B*.bed
+    --group_A_beds ./data/mCLL/*.bed \
+    --group_B_beds ./data/uCLL/*.bed
 ```
 
 #### Output files
@@ -114,7 +107,7 @@ python diffER.py \
 
 - Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we suggest filtering out regions under 300bp for broad marks.
 
-### Plot healmap
+### 4. Plot healmap
 
 - You may experiment with different p-values and assess quality by visualizing the results in a heatmap or profile plot. You can use `plot_heatmap.py` to generate a heatmap. 
 
@@ -129,8 +122,12 @@ python plot_heatmap.py -i diffER_group_B_enriched_regions.bed -s "./data/*CLL/*.
   <img src="./data/heatmap2.png" alt="Figure 2" style="width: 45%;"/>
 </div>
 
+- Heatmaps for group_A (n=7) and group_B (n=13) enriched regions.
+- The fraction of enriched regions occupied by peaks is used to generate heatmaps.
 
 ### 4. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
-### 5. Citation  
+### 6. Citation  
+
+
