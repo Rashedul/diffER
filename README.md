@@ -68,7 +68,7 @@ Usage:
     python diffER.py [--genome_build GENOME_BUILD | --genome_file GENOME_FILE] --group_A_beds GROUP_A_BEDS [--group_B_beds GROUP_B_BEDS] [--window_size WINDOW_SIZE] [--p_value P_VALUE] [--distance DISTANCE] [--outfile OUTFILE] [--outdir OUTDIR]  
 
 Arguments:
-  -h, --help            show this help message and exit
+  -h, --help            Show this help message and exit
   --genome_build GENOME_BUILD
                         Input genome build name
   --genome_file GENOME_FILE
@@ -79,7 +79,7 @@ Arguments:
                         Input group B BED files [required]
   --window_size WINDOW_SIZE
                         Size of the windows; default [50]
-  --p_value P_VALUE     p-value threshold for Fisher's exact test; default [0.05]
+  --p_value P_VALUE     p-value threshold for Fisher's exact test; default [0.03]
   --distance DISTANCE   Maximum distance between intervals allowed to be merged; default [100]
   --outfile OUTFILE     Output file prefix; default [diffER]
   --outdir OUTDIR       Output direcory name; default [current direcory]
@@ -103,7 +103,7 @@ python diffER.py \
 
 #### Output files
 - For each of the two groups, there are two output bed files containing enriched regions. 
-- The output files contail n columns such as `chr` `start` `end` 
+- The output files contail 3 columns (`chr` `start` `end`) 
 
 ```
   - diffER_group_A_enriched_regions.bed 
@@ -116,7 +116,7 @@ python diffER.py \
 
 ### 4. Plot healmap
 
-- You may experiment with different p-values and assess quality by visualizing the results in a heatmap or profile plot. You can use `plot_heatmap.py` to generate a heatmap. 
+- You may experiment with different p-values and check quality by visualizing the results in a heatmap or profile plot. You can use `plot_heatmap.py` to generate a heatmap. 
 
 ```
 python plot_heatmap.py -i diffER_group_A_enriched_regions.bed -s "./data/*CLL/*.bed" -o output.csv -img heatmap1
@@ -129,7 +129,7 @@ python plot_heatmap.py -i diffER_group_B_enriched_regions.bed -s "./data/*CLL/*.
   <img src="./data/heatmap2.png" alt="Figure 2" style="width: 45%;"/>
 </div>
 
-- Heatmaps for group_A (n=7) and group_B (n=13) enriched regions.
+- Heatmaps for group_A (n = 7 samples) and group_B (n = 13 samples) enriched regions at chr10.
 - The fraction of enriched regions occupied by peaks is used to generate heatmaps.
 
 ### 5. Contact  
