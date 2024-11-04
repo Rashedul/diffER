@@ -70,7 +70,7 @@ Usage:
 Arguments:
   -h, --help            Show this help message and exit
   --genome_build GENOME_BUILD
-                        Input genome build name
+                        Input genome build name such as hg38
   --genome_file GENOME_FILE
                         Input genome file
   --group_A_beds GROUP_A_BEDS [GROUP_A_BEDS ...]
@@ -137,13 +137,13 @@ python plot_heatmap.py \
   <img src="./data/heatmap2.png" alt="Figure 2" style="width: 45%;"/>
 </div>
 
-- The fraction of enriched regions occupied by peaks is used to generate heatmaps.
 - Heatmaps for group_A (n = 7 samples) and group_B (n = 13 samples) enriched regions at chr10.
+- The fraction of enriched regions occupied by peaks is used to generate heatmaps.
 - `output1.csv` and `output2.csv` contain the data used in heatmap.
 
 ### 5. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
 ### 6. Citation  
-
+Islam R. et al., Integrative analysis of aberrant epigenomic landscape in chronic lymphocytic leukemia, (2024).
 
