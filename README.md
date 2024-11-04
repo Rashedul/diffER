@@ -130,11 +130,6 @@ python plot_heatmap.py -i diffER_group_B_enriched_regions.bed -s "./data/*CLL/*.
 </div>
 
 
-![ER 1](./data/heatmap1.png)
-
-![ER 2](./data/heatmap2.png)
-
-
 ### 4. Contact  
 Rashedul Islam, PhD (rashedul.gen@gmail.com)
 
