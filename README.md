@@ -48,31 +48,7 @@ pip install -r requirements.txt
 
 ### 3. Run diffER
 
-#### Usage
-```
-python diffER.py -h
-
-Usage:
-    python diffER.py [--genome_build GENOME_BUILD | --genome_file GENOME_FILE] --group_A_beds GROUP_A_BEDS [--group_B_beds GROUP_B_BEDS] [--window_size WINDOW_SIZE] [--p_value P_VALUE] [--distance DISTANCE] [--outfile OUTFILE] [--outdir OUTDIR]  
-
-Arguments:
-  -h, --help            Show this help message and exit
-  --genome_build GENOME_BUILD
-                        Input genome build name such as hg38
-  --genome_file GENOME_FILE
-                        Input genome file
-  --group_A_beds GROUP_A_BEDS [GROUP_A_BEDS ...]
-                        Input group A BED files [required]
-  --group_B_beds GROUP_B_BEDS [GROUP_B_BEDS ...]
-                        Input group B BED files [required]
-  --window_size WINDOW_SIZE
-                        Size of the windows; default [50]
-  --p_value P_VALUE     p-value threshold for Fisher's exact test; default [0.03]
-  --distance DISTANCE   Maximum distance between intervals allowed to be merged; default [100]
-  --outfile OUTFILE     Output file prefix; default [diffER]
-  --outdir OUTDIR       Output direcory name; default [current direcory]
-```
-#### Note
+#### Note:
 - Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/CHROMSIZES_hg38.txt). 
 - Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Find the available genomes in `pybedtools` by searching the genome build such as `hg38`.
 ```
@@ -83,6 +59,31 @@ pybedtools.chromosomesizes("hg38")
 ```
 - `--group_A_beds` and `--group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
 - Required number of samples per group is at least 4.
+
+#### Usage
+```
+python diffER.py -h
+
+Usage:
+    python diffER.py [--genome_build GENOME_BUILD | --genome_file GENOME_FILE] --group_A_beds GROUP_A_BEDS [--group_B_beds GROUP_B_BEDS] [--window_size WINDOW_SIZE] [--p_value P_VALUE] [--distance DISTANCE] [--outfile OUTFILE] [--outdir OUTDIR]  
+
+Arguments:
+  -h, --help            Show this help message and exit
+  --genome_build GENOME_BUILD
+                        Input genome build name such as hg38 [required, if genome_file is not provided]
+  --genome_file GENOME_FILE
+                        Input genome file [required, if genome_build is not provided]
+  --group_A_beds GROUP_A_BEDS [GROUP_A_BEDS ...]
+                        Input group A BED files (e.g., 'group_A/*.bed') [required]
+  --group_B_beds GROUP_B_BEDS [GROUP_B_BEDS ...]
+                        Input group B BED files (e.g., 'group_B/*.bed') [required]
+  --window_size WINDOW_SIZE
+                        Size of the windows to bin the genome; default [50]
+  --p_value P_VALUE     p-value threshold for Fisher's exact test; default [0.03]
+  --distance DISTANCE   Maximum distance (in base pairs) between differentially enriched regions to be merged; default [100]
+  --outfile OUTFILE     Output file prefix; default [diffER]
+  --outdir OUTDIR       Output direcory name; default [current direcory]
+```
 
 #### Example command with genome file (hg38:chr10)
 ```
@@ -109,7 +110,7 @@ python diffER.py \
   - diffER_group_B_enriched_regions.bed
 ```
 
-#### Note
+#### Note:
 
 - Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we recommend filtering out regions under 300bp for broad marks.
 
