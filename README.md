@@ -119,6 +119,10 @@ python diffER.py \
 - You may experiment with different p-values and check quality by visualizing the results in a heatmap or profile plot. You can use `plot_heatmap.py` to generate a heatmap. 
 
 ```
+# Show help message
+plot_heatmap.py -h
+
+# Example heatmaps
 python plot_heatmap.py \
   -i diffER_group_A_enriched_regions.bed \
   --group_A_beds "./data/uCLL/*.bed" \
