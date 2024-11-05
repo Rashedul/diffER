@@ -127,7 +127,7 @@ python plot_heatmap.py \
   -img heatmap1.png
 
 python plot_heatmap.py \
-  -i diffER_group_A_enriched_regions.bed \
+  -i diffER_group_B_enriched_regions.bed \
   --group_A_beds "./data/uCLL/*.bed" \
   --group_B_beds "./data/mCLL/*.bed" \
   -o output2.csv \
