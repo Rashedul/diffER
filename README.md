@@ -149,3 +149,5 @@ Rashedul Islam, PhD (rashedul.gen@gmail.com)
 ### 6. Citation  
 Islam R. et al., Integrative analysis of aberrant epigenomic landscape in chronic lymphocytic leukemia, (2024).
 
+### 7. License
+This project is licensed under the [MIT license](LICENSE). 
