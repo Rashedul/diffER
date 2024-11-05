@@ -48,18 +48,6 @@ pip install -r requirements.txt
 
 ### 3. Run diffER
 
-#### Note:
-- Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/CHROMSIZES_hg38.txt). 
-- Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Find the available genomes in `pybedtools` by searching the genome build such as `hg38`.
-```
-import pybedtools
-pybedtools.genome_registry.hg38
-or
-pybedtools.chromosomesizes("hg38")
-```
-- `--group_A_beds` and `--group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
-- Required number of samples per group is at least 4.
-
 #### Usage
 ```
 python diffER.py -h
@@ -84,6 +72,17 @@ Arguments:
   --outfile OUTFILE     Output file prefix; default [diffER]
   --outdir OUTDIR       Output direcory name; default [current direcory]
 ```
+#### Note
+- Provide a `--genome_file` of your interest. Example of a genome file is provided [here](./data/CHROMSIZES_hg38.txt). 
+- Alternatively, `--genome_build` such as `hg38`, `hg19`, `mm9`, `mm10` etc. can be used. Find the available genomes in `pybedtools` by searching the genome build such as `hg38`.
+```
+import pybedtools
+pybedtools.genome_registry.hg38
+or
+pybedtools.chromosomesizes("hg38")
+```
+- `--group_A_beds` and `--group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
+- Required number of samples per group is at least 4.
 
 #### Example command with genome file (hg38:chr10)
 ```
@@ -110,7 +109,7 @@ python diffER.py \
   - diffER_group_B_enriched_regions.bed
 ```
 
-#### Note:
+#### Note
 
 - Depending on the assay, you may want to exclude regions shorter than a specified length. For instance, we recommend filtering out regions under 300bp for broad marks.
 
