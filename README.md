@@ -58,7 +58,7 @@ or
 pybedtools.chromosomesizes("hg38")
 ```
 - `--group_A_beds` and `--group_B_beds` bed files can be provided as list and/or wildcard (`*`) character. 
-- Required number of samples per group is at least 4.
+- The required number of samples per group is at least 4.
 
 #### Usage
 ```
@@ -82,19 +82,11 @@ Arguments:
   --p_value P_VALUE     P-value threshold for Fisher's exact test; default [0.03]
   --distance DISTANCE   Maximum distance (in base pairs) between differentially enriched regions to be merged; default [100]
   --outfile OUTFILE     Output file prefix; default [diffER]
-  --outdir OUTDIR       Output direcory name; default [current direcory]
+  --outdir OUTDIR       Output directory name; default [current directory]
 ```
 
 #### Example command with genome file (hg38:chr10)
 ```
-python diffER.py \
-    --genome_file ./data/CHROMSIZES_hg38_chr10.txt \
-    --group_A_beds ./data/uCLL/*.bed \
-    --group_B_beds ./data/mCLL/*.bed \
-    --outfile mytest \
-    --outdir testout
-
-
 python diffER.py \
     --genome_file ./data/CHROMSIZES_hg38_chr10.txt \
     --group_A_beds ./data/uCLL/*.bed \
@@ -111,7 +103,7 @@ python diffER.py \
 
 #### Output files
 - For each of the two groups, there are two output bed files containing enriched regions. 
-- The output files contail 3 columns (`chr` `start` `end`) 
+- The output files contain 3 columns (`chr` `start` `end`) 
 
 ```
   - diffER_group_A_enriched_regions.bed 

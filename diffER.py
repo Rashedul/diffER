@@ -9,8 +9,6 @@ from util import (
     remove_directory
 ) 
 
-# python diffER.py --genome_file ./data/genome_chr1 --group_A_beds ./data/uCLL/*bed --group_B_beds ./data/mCLL/*bed --window_size 1000
-
 def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p_value, distance, outfile, outdir):
     # Create windows of specified size
     if genome_build: 
@@ -30,14 +28,13 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p
     # Fisher's exact test
     perform_fisher_test('./temp/merged_group_A_B.bed', './temp/merged_group_A_B_fisher.bed')
 
-    # Generate ERs per group
+    # Generate enriched regions per group
     enriched_regions(p_value, distance, outfile, outdir)
 
     # Remove intermediate files
     print("Cleaning up temporary files...")
     remove_directory('temp')
     print("Processing complete.")
-
 
 def main():
     # Parsing command line arguments
