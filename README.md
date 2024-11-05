@@ -79,7 +79,7 @@ Arguments:
                         Input group B BED files (e.g., 'group_B/*.bed') [required]
   --window_size WINDOW_SIZE
                         Size of the windows to bin the genome; default [50]
-  --p_value P_VALUE     p-value threshold for Fisher's exact test; default [0.03]
+  --p_value P_VALUE     P-value threshold for Fisher's exact test; default [0.03]
   --distance DISTANCE   Maximum distance (in base pairs) between differentially enriched regions to be merged; default [100]
   --outfile OUTFILE     Output file prefix; default [diffER]
   --outdir OUTDIR       Output direcory name; default [current direcory]
@@ -87,6 +87,14 @@ Arguments:
 
 #### Example command with genome file (hg38:chr10)
 ```
+python diffER.py \
+    --genome_file ./data/CHROMSIZES_hg38_chr10.txt \
+    --group_A_beds ./data/uCLL/*.bed \
+    --group_B_beds ./data/mCLL/*.bed \
+    --outfile mytest \
+    --outdir testout
+
+
 python diffER.py \
     --genome_file ./data/CHROMSIZES_hg38_chr10.txt \
     --group_A_beds ./data/uCLL/*.bed \

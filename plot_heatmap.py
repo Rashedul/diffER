@@ -5,7 +5,7 @@ import glob
 import os
 import seaborn as sns
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches  # For creating legend handles
+import matplotlib.patches as mpatches  
 
 def main(intervals_path, group_A_pattern, group_B_pattern, output_file, image_file):
     # Define the main intervals file and load it as a BedTool object
@@ -89,8 +89,8 @@ if __name__ == "__main__":
     # Set up argument parser
     parser = argparse.ArgumentParser(description="Calculate fraction of enriched regions covered by peaks using multiple BED files.")
     parser.add_argument("-i", "--intervals", required=True, help="Path to the main intervals BED file (e.g., diffER_group_A_enriched_regions.bed)")
-    parser.add_argument("--group_A_beds", required=True, help="Glob pattern for Group A sample BED files (e.g., 'group_A/*.bed')")
-    parser.add_argument("--group_B_beds", required=True, help="Glob pattern for Group B sample BED files (e.g., 'group_B/*.bed')")
+    parser.add_argument("--group_A_beds", required=True, help="Pattern for Group A sample BED files (e.g., 'group_A/*.bed')")
+    parser.add_argument("--group_B_beds", required=True, help="Pattern for Group B sample BED files (e.g., 'group_B/*.bed')")
     parser.add_argument("-o", "--output", default="interval_fraction_coverage.csv", help="Output CSV file name")
     parser.add_argument("-img", "--image", default="heatmap.png", help="Output image file name for the heatmap")
 
