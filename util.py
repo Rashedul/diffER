@@ -5,6 +5,7 @@ import pandas as pd
 from scipy.stats import fisher_exact
 import shutil
 import glob
+from tqdm import tqdm
 
 """
 Create windows of specific size from a genome build 
@@ -66,7 +67,8 @@ def intersect_bedfiles(primary_bed, bed_files_pattern, output_filename, output_d
     primary_df['non_intersect_count'] = 0
 
     # Process each bed file individually
-    for bedfile in bed_files_pattern:
+    # for bedfile in bed_files_pattern:
+    for bedfile in tqdm(bed_files_pattern, desc="Processing BED files"):
         bed = pybedtools.BedTool(bedfile).sort()
         intersected = primary.intersect(bed, c=True, sorted=True)
         intersected_df = intersected.to_dataframe()
@@ -125,7 +127,8 @@ def perform_fisher_test(input_file, fisher_output):
     odds_ratios = []
     
     # Iterate over each row in the DataFrame
-    for index, row in data.iterrows():
+    # for index, row in data.iterrows():
+    for index, row in tqdm(data.iterrows(), total=len(data), desc="Fisher Test Progress"):
         # Create a 2x2 contingency table from columns 4 to 7 (zero-indexed as 3 to 6)
         contingency_table = [[row[3], row[4]], [row[5], row[6]]]
         # print(contingency_table)

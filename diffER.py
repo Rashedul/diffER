@@ -34,7 +34,10 @@ def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p
     enriched_regions(p_value, distance, outfile, outdir)
 
     # Remove intermediate files
+    print("Cleaning up temporary files...")
     remove_directory('temp')
+    print("Processing complete.")
+
 
 def main():
     # Parsing command line arguments

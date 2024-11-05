@@ -120,16 +120,18 @@ python diffER.py \
 
 ```
 python plot_heatmap.py \
-        -i diffER_group_A_enriched_regions.bed \
-        -s "./data/*CLL/*.bed" \
-        -o output.csv \
-        -img heatmap1
+  -i diffER_group_A_enriched_regions.bed \
+  --group_A_beds "./data/uCLL/*.bed" \
+  --group_B_beds "./data/mCLL/*.bed" \
+  -o output1.csv \
+  -img heatmap1.png
 
 python plot_heatmap.py \
-        -i diffER_group_B_enriched_regions.bed \
-        -s "./data/*CLL/*.bed" \
-        -o output2.csv \
-        -img heatmap2
+  -i diffER_group_A_enriched_regions.bed \
+  --group_A_beds "./data/uCLL/*.bed" \
+  --group_B_beds "./data/mCLL/*.bed" \
+  -o output2.csv \
+  -img heatmap2.png
 ```
 
 <div style="display: flex; justify-content: space-between;">
