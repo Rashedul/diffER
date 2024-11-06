@@ -51,7 +51,7 @@ def make_windows_file(genome_file, window_size):
     windows.saveas(filepath)
 
 """
-Count number of bed files intersected (not-intersected) to the windows 
+Count number of bed files intersected (and not-intersected) to the windows 
 """
 
 def intersect_bedfiles(primary_bed, bed_files_pattern, output_filename, output_directory):
@@ -184,6 +184,10 @@ def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename, ou
     merged_intervals_neg.saveas(output_file_neg)
 
     print(f"Output created and saved as: \n - {output_directory}/{differ_output_filename}_group_A_enriched_regions.bed \n - {output_directory}/{differ_output_filename}_group_B_enriched_regions.bed")
+
+"""
+Remove directory containing temporary files 
+"""    
 
 def remove_directory(dir_path):
     if os.path.exists(dir_path):

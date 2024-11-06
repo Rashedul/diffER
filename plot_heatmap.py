@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches  
 
 def main(intervals_path, group_A_pattern, group_B_pattern, output_file, image_file):
-    # Define the main intervals file and load it as a BedTool object
+    # Define bed file containing enriched regions and load it as a BedTool object
     main_intervals = pybedtools.BedTool(intervals_path)
 
     # Expand the sample file patterns for group A and group B
