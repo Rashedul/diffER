@@ -1,6 +1,6 @@
 import argparse
 import tempfile
-from test_util import (
+from util import (
     make_windows_build, 
     make_windows_file, 
     intersect_bedfiles, 
