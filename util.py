@@ -11,43 +11,34 @@ from tqdm import tqdm
 Create windows of specific size from a genome build 
 """
 
-def make_windows_build(genome_build, window_size):
+def make_windows_build(genome_build, window_size, output_dir):
     print("Generating windows from genome build...")
     # Create a BED object
     a = pybedtools.BedTool()
 
     # Create windows of specified size
     windows = a.window_maker(genome=genome_build, w=window_size)
-    output_bed = f"windows.bed"
+    output_bed = "windows.bed"
     
-    # Ensure the temp directory exists
-    temp_dir = "temp"
-    if not os.path.exists(temp_dir):
-        os.makedirs(temp_dir, exist_ok=True)
-        print(f"Directory created: {temp_dir}")
-    else:
-        print(f"Directory already exists: {temp_dir}")
-
     # Save the windows to a new BED file in temp directory
-    filepath = os.path.join("temp", output_bed)
+    filepath = os.path.join(output_dir, output_bed)
     windows.saveas(filepath)
 
 """
 Create windows of specific size from a genome file
 """
 
-def make_windows_file(genome_file, window_size):
+def make_windows_file(genome_file, window_size, output_dir):
     print("Generating windows from genome file...")
     # Create a BED object
     a = pybedtools.BedTool()
 
     # Create windows of specified size
     windows = a.window_maker(g=genome_file, w=window_size)
-    output_bed = f"windows.bed"
+    output_bed = "windows.bed"
     
     # Save the windows to a new BED file in temp directory
-    os.makedirs("temp", exist_ok=True)
-    filepath = os.path.join("temp", output_bed)
+    filepath = os.path.join(output_dir, output_bed)
     windows.saveas(filepath)
 
 """
@@ -67,7 +58,6 @@ def intersect_bedfiles(primary_bed, bed_files_pattern, output_filename, output_d
     primary_df['non_intersect_count'] = 0
 
     # Process each bed file individually
-    # for bedfile in bed_files_pattern:
     for bedfile in tqdm(bed_files_pattern, desc="Processing BED files"):
         bed = pybedtools.BedTool(bedfile).sort()
         intersected = primary.intersect(bed, c=True, sorted=True)
@@ -151,13 +141,13 @@ def perform_fisher_test(input_file, fisher_output):
 Merge neighboring enriched bins 
 """    
 
-def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename, output_directory):
+def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename, output_directory, input_directory):
 
-    # Ensure the output directory exists
-    os.makedirs(output_directory, exist_ok=True)
+    # Read the file 
+    input_file_path = os.path.join(input_directory, 'merged_group_A_B_fisher.bed')
 
-    # Read the file (assuming you are using pandas)
-    df = pd.read_csv('./temp/merged_group_A_B_fisher.bed', sep='\t', header=None)
+    # Read the file
+    df = pd.read_csv(input_file_path, sep='\t', header=None)
 
     # Filter rows based on the p-value threshold 
     df = df[df[7].astype(float) <= fisher_p_value]
@@ -183,17 +173,4 @@ def enriched_regions(fisher_p_value, merge_intervals, differ_output_filename, ou
     merged_intervals_pos.saveas(output_file_pos)
     merged_intervals_neg.saveas(output_file_neg)
 
-    print(f"Output created and saved as: \n - {output_directory}/{differ_output_filename}_group_A_enriched_regions.bed \n - {output_directory}/{differ_output_filename}_group_B_enriched_regions.bed")
-
-"""
-Remove directory containing temporary files 
-"""    
-
-def remove_directory(dir_path):
-    if os.path.exists(dir_path):
-        try:
-            shutil.rmtree(dir_path)
-        except OSError as e:
-            print(f"Error: {e.strerror}")
-    else:
-        print(f"Directory '{dir_path}' does not exist.")
+    print(f"Enriched regions are generated and saved as: \n - {output_directory}/{differ_output_filename}_group_A_enriched_regions.bed \n - {output_directory}/{differ_output_filename}_group_B_enriched_regions.bed")

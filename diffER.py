@@ -1,40 +1,42 @@
 import argparse
-from util import (
+import tempfile
+from test_util import (
     make_windows_build, 
     make_windows_file, 
     intersect_bedfiles, 
     perform_fisher_test, 
     merge_groups, 
     enriched_regions,
-    remove_directory
-) 
+)
 
 def diffER(genome_build, genome_file, group_A_beds, group_B_beds, window_size, p_value, distance, outfile, outdir):
-    # Create windows of specified size
-    if genome_build: 
-        make_windows_build(genome_build, window_size)
-    elif genome_file:
-        make_windows_file(genome_file, window_size)
-    else:
-        raise ValueError("Either genome_build or genome_file must be provided.")
+    # Use a temporary directory
+    with tempfile.TemporaryDirectory() as temp_dir:
+        print(f"To store temporary files, using temporary directory: {temp_dir}")
+        
+        # Create windows of specified size
+        if genome_build: 
+            make_windows_build(genome_build, window_size, temp_dir)
+        elif genome_file:
+            make_windows_file(genome_file, window_size, temp_dir)
+        else:
+            raise ValueError("Either genome_build or genome_file must be provided.")
 
-    # Intersect primary BED with group A and B BED files
-    intersect_bedfiles('./temp/windows.bed', group_A_beds, "group_A_intersect.bed", './temp')
-    intersect_bedfiles('./temp/windows.bed', group_B_beds, "group_B_intersect.bed", './temp')
+        # Intersect primary BED with group A and B BED files
+        intersect_bedfiles(f"{temp_dir}/windows.bed", group_A_beds, "group_A_intersect.bed", temp_dir)
+        intersect_bedfiles(f"{temp_dir}/windows.bed", group_B_beds, "group_B_intersect.bed", temp_dir)
 
-    # Merge two files containing the number of intersections (and non-intersection) of samples in group_A and group_B
-    merge_groups('./temp/group_A_intersect.bed', './temp/group_B_intersect.bed', 'merged_group_A_B.bed', './temp')
-    
-    # Fisher's exact test
-    perform_fisher_test('./temp/merged_group_A_B.bed', './temp/merged_group_A_B_fisher.bed')
+        # Merge two files containing the number of intersections (and non-intersection) of samples in group_A and group_B
+        merge_groups(f"{temp_dir}/group_A_intersect.bed", f"{temp_dir}/group_B_intersect.bed", 'merged_group_A_B.bed', temp_dir)
+        
+        # Perform Fisher's exact test
+        perform_fisher_test(f"{temp_dir}/merged_group_A_B.bed", f"{temp_dir}/merged_group_A_B_fisher.bed")
 
-    # Generate enriched regions per group
-    enriched_regions(p_value, distance, outfile, outdir)
+        # Generate enriched regions per group
+        enriched_regions(p_value, distance, outfile, outdir, temp_dir)
 
-    # Remove intermediate files
-    print("Cleaning up temporary files...")
-    remove_directory('temp')
-    print("Processing complete.")
+        # Temporary directory and its contents are automatically cleaned up here
+        print("Processing complete. Temporary files removed.")
 
 def main():
     # Parsing command line arguments
