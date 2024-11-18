@@ -120,7 +120,7 @@ python diffER.py \
 
 ```
 # Show help message
-plot_heatmap.py -h
+python plot_heatmap.py -h
 
 # Example heatmaps
 python plot_heatmap.py \
