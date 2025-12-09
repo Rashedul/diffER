@@ -33,7 +33,6 @@ git clone https://github.com/Rashedul/diffER.git
 ```
 
  - Create a virtual environment
- - Time: ~2.5 seconds on a personal computer
 
 ```
 cd diffER
@@ -42,7 +41,7 @@ source ./environment/bin/activate
 ```
 
  - Install python packages
- - Time: ~30 seconds on a personal computer
+ - Time: ~30 seconds on a MacBook
 
 ```
 pip install -r requirements.txt
@@ -88,7 +87,7 @@ Arguments:
 ```
 
 #### Example command with genome file (hg38) for chr10 only
- - Time: ~10 minutes on a personal computer
+ - Time: ~10 minutes on a MacBook
 
 ```
 python diffER.py \
@@ -98,6 +97,8 @@ python diffER.py \
 ```
 
 #### Example command with genome build 
+ - Time: ~3 hours on a MacBook
+
 ```
 python diffER.py \
     --genome_build hg38 \
